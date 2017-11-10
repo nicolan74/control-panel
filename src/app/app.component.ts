@@ -1,46 +1,47 @@
 // tslint:disable:max-line-length
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
+import { SearchProductService } from './search-product.service';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
+
 export class AppComponent {
   title = 'control-panel';
 
+  products: Product[];
   // link = 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=';
 
   http: Http;
 
   constructor(
-    http: Http
+    http: Http,
+    private searchProductService: SearchProductService
+
   ) {
     this.http = http;
   }
 
-  performSearch(searchTerm: HTMLInputElement): void {
-    console.log(`User entered: ${searchTerm.value}`);
-    // const apiLink = this.link + searchTerm.value;
+  // performSearch(searchParam): void {
+  //   console.log(`User entered: ${searchParam.value}`);
 
-    const apiLink = `https://test.eurofoodservice.it/api/products?output_format=JSON&display=[id,%20name,%20id_default_image,%20price,%20description]&filter[name]=[${searchTerm.value}]%25&ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C`;
-    this.http.request(apiLink).subscribe((res: Response) => {
-      console.log(res.json());
-    },
-      errMsg => {
-        console.log('SEARCH ERROR MESSAGE', errMsg);
-      },
-      () => {
+  //   this.searchProductService.searchProducts(searchParam.value).subscribe(products => {
+  //     this.products = products;
+  //     console.log('THIS PRODUCTS ', this.products);
+  //   },
+  //     errMsg => {
+  //       console.log('SEARCH ERROR MESSAGE', errMsg);
+  //     },
+  //     () => {
 
-        console.log('SEARCH COMPLETE');
-      }
-
-
-    );
-
-
-  }
+  //       console.log('SEARCH COMPLETE');
+  //     }
+  //   );
+  // }
 
 }

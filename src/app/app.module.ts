@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
+import { SearchProductService } from './search-product.service';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
   ],
-  providers: [],
+  providers: [SearchProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

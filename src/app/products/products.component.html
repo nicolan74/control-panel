@@ -1,0 +1,22 @@
+<input name="title" #searchParam>
+
+<button (click)="performSearch(searchParam)">Cerca</button>
+
+<ul class="products">
+  <li *ngFor="let product of products"
+    [class.selected]="product === selectedProduct" 
+    (click)="onSelect(product)">
+    <span class="badge">{{product.id}}</span> {{product.name}}
+  </li>
+</ul>
+
+<div *ngIf="selectedProduct">
+  <div>
+    <span>id: </span>
+    {{selectedProduct.id}}
+  </div>
+  <h2> {{selectedProduct.name | uppercase}}</h2>
+
+ 
+
+</div>
