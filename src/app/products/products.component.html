@@ -1,8 +1,9 @@
-<input name="title" #searchParam>
+<!-- <input name="title" #searchParam> -->
 
-<button (click)="performSearch(searchParam)">Cerca</button>
+<!-- <button (click)="performSearch(searchParam)">Cerca</button> -->
 
 <!-- <button [(ngModel)]="name" (input)="search($event)">Cerca</button> -->
+<input (keyup)="search($event)">
 
 <ul class="products">
   <li *ngFor="let product of products"

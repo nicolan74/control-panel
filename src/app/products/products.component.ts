@@ -3,7 +3,10 @@ import { SearchProductService } from '../search-product.service';
 import { Product } from '../../models/product';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { NotificationService } from '../notification.service';
+
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
+
 
 @Component({
   selector: 'app-products',
@@ -19,6 +22,8 @@ export class ProductsComponent implements OnInit {
   currentTerm: string;
 
   // http: Http;
+  results: Object;
+  searchTerm$ = new Subject<string>();
 
   constructor(
     private searchProductService: SearchProductService,
@@ -34,11 +39,12 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  // search(searchParam) {
-  performSearch(searchParam): void {
-    console.log(`User entered: ${searchParam.value}`);
-    // console.log(`User entered:`, searchParam.target.value);
-    const term = searchParam.value;
+  search(searchParam) {
+  // performSearch(searchParam): void {
+    // console.log(`User entered: ${searchParam.value}`);
+    console.log(`User entered:`, searchParam.target.value);
+    // const term = searchParam.value;
+    const term = searchParam.target.value;
 
     if (term.trim() === '' || term.trim().length < 3) {
       // Load cached products
@@ -75,7 +81,7 @@ export class ProductsComponent implements OnInit {
 
   onSelect(product: Product): void {
     this.selectedProduct = product;
-    // console.log('Selected Product - OBJECT ', this.selectedProduct);
+    console.log('Selected Product - OBJECT ', this.selectedProduct);
     console.log('Selected Product - ID ', this.selectedProduct.id);
     console.log('Selected Product - NAME ', this.selectedProduct.name);
 
