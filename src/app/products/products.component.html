@@ -2,6 +2,8 @@
 
 <button (click)="performSearch(searchParam)">Cerca</button>
 
+<!-- <button [(ngModel)]="name" (input)="search($event)">Cerca</button> -->
+
 <ul class="products">
   <li *ngFor="let product of products"
     [class.selected]="product === selectedProduct" 
@@ -17,6 +19,8 @@
   </div>
   <h2> {{selectedProduct.name | uppercase}}</h2>
 
-  <button (click)="sendNotification()" type="submit">Invia Notifica</button>
+  <div><label>Messaggio: <input type="text" name="message" #message></label></div>
+
+  <button (click)="sendNotification(message)" type="submit">Invia Notifica</button>
 
 </div>

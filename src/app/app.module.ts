@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SearchProductService } from './search-product.service';
 import { ProductsComponent } from './products/products.component';
+import { NotificationService  } from './notification.service';
+
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -14,8 +18,9 @@ import { ProductsComponent } from './products/products.component';
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule
   ],
-  providers: [SearchProductService],
+  providers: [SearchProductService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
