@@ -3,25 +3,34 @@
 <!-- <button (click)="performSearch(searchParam)">Cerca</button> -->
 
 <!-- <button [(ngModel)]="name" (input)="search($event)">Cerca</button> -->
-<input (keyup)="search($event)">
+<div class="container color-dark">
+  <div class="col">
+    <input (keyup)="search($event)" placeholder="Cerca">
 
-<ul class="products">
-  <li *ngFor="let product of products"
-    [class.selected]="product === selectedProduct" 
-    (click)="onSelect(product)">
-    <span class="badge">{{product.id}}</span> {{product.name}}
-  </li>
-</ul>
-
-<div *ngIf="selectedProduct">
-  <div>
-    <span>id: </span>
-    {{selectedProduct.id}}
+    <ul class="products">
+      <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
+        <span class="badge">{{product.id}}</span> {{product.name}}
+      </li>
+    </ul>
   </div>
-  <h2> {{selectedProduct.name | uppercase}}</h2>
 
-  <div><label>Messaggio: <input type="text" name="message" #message></label></div>
+  <div class="col">
+    <div *ngIf="selectedProduct">
+      <div style="min-width: 150px !important;">  
+        <img src="https://test.eurofoodservice.it/api/images/products/{{selectedProduct.id}}/{{selectedProduct.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 150px !important; height: auto !important;" />
+      </div>
+      <!-- <div>
+        <span>id: </span> {{selectedProduct.id}}
+      </div> -->
+      <h2> {{selectedProduct.name | uppercase}}</h2>
 
-  <button (click)="sendNotification(message)" type="submit">Invia Notifica</button>
+      <div>
+        <!-- <label>Messaggio -->
+          <input type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important">
+        <!-- </label> -->
+      </div>
 
+      <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button>
+    </div>
+  </div>
 </div>
