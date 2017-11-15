@@ -80,3 +80,22 @@
         margin-bottom:1em;
         cursor:pointer;
     }
+
+    .example-card {
+        width: 400px;
+      }
+      
+      .example-header-image {
+        /* background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg'); */
+        background-size: cover;
+      }
+mat-card{
+    /* margin-left: 10px !important;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+    margin-top: 10px !important; */
+    /* padding-bottom: 10px !important;
+    padding-left: 10px !important;
+    padding-top: 10px !important;
+    padding-right: 10px !important; */
+}

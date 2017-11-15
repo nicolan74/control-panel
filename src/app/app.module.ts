@@ -6,8 +6,11 @@ import { HttpModule } from '@angular/http';
 import { SearchProductService } from './search-product.service';
 import { ProductsComponent } from './products/products.component';
 import { NotificationService  } from './notification.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
 
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 @NgModule({
@@ -18,7 +21,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    AppRoutingModule
   ],
   providers: [SearchProductService, NotificationService],
   bootstrap: [AppComponent]
