@@ -1,18 +1,45 @@
 <!-- <input name="title" #searchParam> -->
 
 
-<div class="container color-dark">
-  <div class="col">
-    <input (keyup)="search($event)" placeholder="Cerca">
+<div class="container">
+  <div class="colproducts">
+    <!-- <input (keyup)="search($event)" placeholder="Cerca"> -->
+    <div class="input">
+    <!-- <mat-icon><b>search</b></mat-icon>  -->
+    <mat-form-field [color]="accent">
+        <!-- <mat-icon>favorite</mat-icon> -->
+        <mat-placeholder>
+          <!-- <mat-icon><b>search</b></mat-icon>  -->
+          <b> Cerca </b>
+        </mat-placeholder>
+      <input (keyup)="search($event)" matInput >
+      <span matPrefix><mat-icon><b>search</b></mat-icon>&nbsp;&nbsp;</span>
+    </mat-form-field>
+  </div>
+
+  <mat-list >
+      <mat-list-item class="products-mat" *ngFor="let product of products">
+        <img matListAvatar src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 70px !important; height: auto !important;" alt="...">
+        <h3 matLine> {{product.name}} </h3>
+        <p matLine>
+          <span> {{product.id}}</span>
+          <span class="demo-2"> -- message.content </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
 
     <ul class="products">
       <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
-        <span class="badge">{{product.id}}</span> {{product.name}}
+          <!-- <img class="badge" src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 70px !important; height: auto !important;" alt="..."> -->
+        <!-- APRE PRODUCT DETAIL E PASSA ID PRODOTTO -->
+        <a routerLink="/detail/{{product.id}}" style="text-decoration: none !important;">
+          <span class="badge">{{product.id}}</span> {{product.name}}
+        </a>
       </li>
     </ul>
   </div>
 
-  <div class="col">
+  <div class="colproducts">
     <div *ngIf="selectedProduct">
       <div style="min-width: 150px !important;">  
         <img src="https://test.eurofoodservice.it/api/images/products/{{selectedProduct.id}}/{{selectedProduct.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 150px !important; height: auto !important;" />
@@ -28,7 +55,8 @@
         <!-- </label> -->
       </div>
 
-      <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button>
+      <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br>
+      <button mat-raised-button routerLink="/products" color="accent" (click)="selectedOption(notificationTypeSelected)">Next</button>
     </div>
   </div>
 </div>

@@ -1,0 +1,13 @@
+<div *ngIf="product">
+ 
+    <img src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C"
+      style="width: 150px !important; height: auto !important;" />
+  
+  <!-- <div>
+      <span>id: </span> {{selectedProduct.id}}
+    </div> -->
+  <h2> {{product.name | uppercase}}</h2>
+
+  <button (click)="goBack()">go back</button>
+
+</div>

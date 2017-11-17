@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="col" style="margin-right: 10px;">
+    <p>TIPO NOTIFICA</p>
+
+    <!-- <mat-radio-group class="radio-group" [(ngModel)]="notificationTypeSelected"> -->
+    <mat-radio-group class="radio-group" [(ngModel)]="notificationTypeSelected" (change)="changeNotficationSelection(notificationTypeSelected)">
+      <mat-radio-button class="radio-button" *ngFor="let option of notificationOptions" [value]="option">
+        {{option}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <p>DESTINATARI</p>
+    <mat-radio-group class="radio-group" [(ngModel)]="audienceSelected" (change)="changeAudienceSelection(audienceSelected)">
+      <mat-radio-button class="radio-button" *ngFor="let option of audienceOptions" [value]="option">
+        {{option}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    
+    
+    <!-- <div class="back_next_btns">
+      <button mat-raised-button color="accent" (click)="selectedOption(notificationTypeSelected)">Next</button>
+    </div> -->
+  </div>
+  <div class="colHalfTwo">
+      <p>TIPO DI NOTIFICA </p>
+      <div class="selected-value">{{notificationTypeSelected}}
+          <span *ngIf="notificationTypeSelected == 'Messaggio + link a contenuto'">
+              <p style="font-size:0.9em">Apre il dettaglio del prodotto collegato al messaggio quando l'utente clicca sulla notifica</p>
+          </span>
+      </div>
+
+      <p>DESTINATARI</p>
+      <div class="selected-value">{{audienceSelected}}
+        <span *ngIf="audienceSelected == 'Invia a tutti'">
+            <p style="font-size:0.9em">Invia la notifica a tutti gli utenti</p>
+        </span>
+      </div>
+  </div>
+
+</div>

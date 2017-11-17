@@ -11,12 +11,20 @@ import { MaterialModule } from './material/material.module';
 
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { NotificationMessageComponent } from './notification-message/notification-message.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent
+    ProductsComponent,
+    DashboardComponent,
+    ProductDetailComponent,
+    NotificationMessageComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

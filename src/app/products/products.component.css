@@ -9,19 +9,43 @@
         padding: 0;
         /* width: 15em; */
         width: fit-content !important;
+        
     }
     .products li {
         cursor: pointer;
         position: relative;
         left: 0;
-        background-color: #EEE;
+        background-color: #fff;
         margin: .5em;
+        /* padding-top: .3em;
+        padding-bottom: .3em; */
+        padding-top: 2em;
+        padding-bottom: 2em;
+        /* padding-left: 2em; */
+        padding-right: 2em;
+        height: 1.6em;
+        /* border-radius: 4px; */
+        /* box-shadow: 
+        0 3px 1px -2px rgba(0,0,0,.2), 
+        0 2px 2px 0 rgba(0,0,0,.14), 
+        0 1px 5px 0 rgba(0,0,0,.12) !important;
+        font-family:  Roboto,"Helvetica Neue",sans-serif; */
+       
+        
+    }
+    .products-mat :hover {
+        cursor: pointer;
+        position: relative;
+        left: 0;
+        background-color: #EEE;
+        /* margin: .5em; */
         padding-top: .3em;
         padding-bottom: .3em;
         padding-right: .5em;
-        height: 1.6em;
+        /* height: 1.6em; */
         border-radius: 4px;
     }
+
     .products li.selected:hover {
         background-color: #BBD8DC !important;
         color: white;
@@ -64,8 +88,9 @@
         display: grid;
         grid-template-columns: 50% auto;
     }
-    .col {
+    .colproducts {
         padding: .4em 1.3em;
+        
     }
     /* .color-dark {
         background: #2885C4;
@@ -98,4 +123,26 @@ mat-card{
     padding-left: 10px !important;
     padding-top: 10px !important;
     padding-right: 10px !important; */
+}
+.mat-icon {
+    color: #ff3776
+}
+.mat-form-field-infix {
+    width: 300px !important;
+}
+.mat-form-field-wrapper {
+    margin-left: 10px !important;
+}
+.mat-list-item-content {
+    box-shadow: 
+    0 3px 1px -2px rgba(0,0,0,.2), 
+    0 2px 2px 0 rgba(0,0,0,.14), 
+    0 1px 5px 0 rgba(0,0,0,.12) !important;
+    min-height: 85px !important;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+
+mat-list-text {
+    padding-left: 25px !important;
 }

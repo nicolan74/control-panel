@@ -109,7 +109,7 @@ export class ProductsComponent implements OnInit {
     //     console.log('--->RESPONSE ', data);
     //   });
 
-    this.notificationService.oneSignalNotification(`${message.value}`, `${this.selectedProduct.id}`);
+    this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.selectedProduct.id}`);
   }
 
 }

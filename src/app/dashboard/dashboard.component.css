@@ -1,0 +1,41 @@
+.radio-group {
+    display: inline-flex;
+    flex-direction: column;
+  }
+  
+  .radio-button {
+    margin: 5px;
+  }
+  
+  .selected-value {
+    margin: 15px 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    background-color: #f1f1f2;
+    border-radius: 4px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    padding-left: 16px;
+    color: #929497;
+  }
+
+  p {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    color: #929497;
+    margin-bottom: 10px;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 50% auto;
+    
+}
+.col {
+    padding: .4em 1.3em;
+    background-color: #f1f1f2;
+    border-radius: 4px;
+}
+.back_next_btns {
+  margin-bottom:16px;
+  margin-top:16px;
+}
+

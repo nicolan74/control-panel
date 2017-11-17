@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Control-panel</span>
+  
+      <nav>
+        <a routerLink="/dashboard" routerLinkActive="active-link">Dashoard</a>
+        <a routerLink="/products" routerLinkActive="active-link">Prodotti</a>
+      </nav>
+      <span class="spacer"></span>
+      <!-- <button mat-button>Notifiche</button>
+      
+      <button mat-icon-button (click)="showInfo(link)">
+        <mat-icon>person</mat-icon> 
+       </button> -->
+       <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
+       <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOption()">NEXT</button>
+  
+    </mat-toolbar-row>
+  </mat-toolbar>

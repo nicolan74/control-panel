@@ -1,0 +1,12 @@
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .mat-raised-button {
+    color: rgba(0,0,0,.87) !important;
+    min-width: 50px !important;
+    /* font-size: 12px !important; */
+  }

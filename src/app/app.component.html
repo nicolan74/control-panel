@@ -15,20 +15,13 @@
   </li>
 
 </ul> -->
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Control-panel</span>
+<app-toolbar></app-toolbar>
 
-    <span class="spacer"></span>
-    <button mat-button>Notifiche</button>
-    
-    <button mat-icon-button (click)="showInfo(link)">
-      <mat-icon>person</mat-icon> 
-     </button>
 
-  </mat-toolbar-row>
-</mat-toolbar>
-
+<nav>
+    <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
+    <a routerLink="/products" routerLinkActive="active-link">Prodotti</a>
+</nav>
 <router-outlet></router-outlet>
 <!-- <app-products></app-products> -->
 

@@ -34,4 +34,12 @@ export class SearchProductService {
       .get(`${url}`)
       .map(res => <Product[]>res.json().products);
   }
+
+  loadProductDetails(id: number): Observable<Product> {
+    const url = `${BASE_URL}/products?output_format=JSON&display=full&filter[id]=[${id}]&ws_key=${WS_KEY}`;
+    console.log('urlFor_loadProductDetails ', url);
+    return this.http
+      .get(`${url}`)
+      .map(res => <Product>(res.json().products[0]));
+  }
 }
