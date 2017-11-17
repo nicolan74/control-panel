@@ -11,6 +11,7 @@ export class NotificationService {
   GET_DEVICES_URL_AND_APPID = ONESIGNAL_GET_EUROFOOD_DEVICES_BASE_URL + '?app_id=' + ONESIGNAL_EUROFOOD_APP_ID;
   notificationTypeSelected: string;
   audienceSelected: string;
+  selectedProductId: any;
 
   constructor(
     private http: Http,
@@ -116,6 +117,11 @@ export class NotificationService {
   getAudienceSelected(audienceSelected): void {
     this.audienceSelected = audienceSelected;
     console.log('Notification Service COMP -> AUDIENCE SELEZIONATA: ', `${audienceSelected}`);
+  }
+
+  getSelectedProduct(productId): void {
+    this.selectedProductId = productId;
+    console.log('Notification Service COMP -> PRODOTTO SELEZIONATO: ', `${productId}`);
   }
 
   // selectedOption(notificatioType): void {

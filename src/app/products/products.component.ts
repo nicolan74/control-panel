@@ -85,7 +85,8 @@ export class ProductsComponent implements OnInit {
     console.log('Selected Product - ID ', this.selectedProduct.id);
     console.log('Selected Product - NAME ', this.selectedProduct.name);
     console.log('Selected Product - ID DEFAULT IMAGE ', this.selectedProduct.id_default_image);
-
+    
+    this.notificationService.getSelectedProduct(this.selectedProduct.id);
   }
 
   sendNotification(message) {

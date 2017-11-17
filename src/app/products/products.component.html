@@ -18,7 +18,7 @@
   </div>
 
   <mat-list >
-      <mat-list-item class="products-mat" *ngFor="let product of products">
+      <mat-list-item class="products-mat" *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
         <img matListAvatar src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 70px !important; height: auto !important;" alt="...">
         <h3 matLine> {{product.name}} </h3>
         <p matLine>

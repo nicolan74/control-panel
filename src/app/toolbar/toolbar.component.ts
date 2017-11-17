@@ -11,6 +11,10 @@ import { Location } from '@angular/common';
 })
 export class ToolbarComponent implements OnInit, DoCheck {
   notificationTypeSelected: string;
+  selectedProductId: number;
+
+  IS_PRODUCT_PAGE = false;
+
   constructor(
     private notificationService: NotificationService,
     private router: Router,
@@ -18,18 +22,37 @@ export class ToolbarComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit() {
+    // this.router.url === '/products';
+    // if (this.router.url === '/products') {
+    //   console.log('IDENTIFICATA PAGINA PRODOTTI');
+    //   this.IS_PRODUCT_PAGE = true;
+    // }
 
   }
 
   ngDoCheck() {
     this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
     console.log('TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
+
+    this.selectedProductId = this.notificationService.selectedProductId;
+    console.log('TOOLBAR COMP -> ID PRODOTTO SELEZIONATO: ', this.selectedProductId);
+
+
+    if (this.router.url === '/products') {
+      console.log('IDENTIFICATA PAGINA PRODOTTI');
+      this.IS_PRODUCT_PAGE = true;
+      console.log('IS PRODUCT PAGE ', this.IS_PRODUCT_PAGE);
+    }
   }
 
   goToselectedOption() {
     if (this.notificationTypeSelected === 'Messaggio + link a contenuto') {
       this.router.navigate(['/products']);
-      this.notificationService.notificationTypeSelected = this.notificationTypeSelected;
+      
+      if (this.IS_PRODUCT_PAGE) {
+        this.router.navigate(['/detail/' + this.selectedProductId ]);
+      }
+
     } else if (this.notificationTypeSelected === 'Messaggio + link a pagina web') {
       this.router.navigate(['/notification', { new: 'message+url' }]);
 
@@ -41,4 +64,6 @@ export class ToolbarComponent implements OnInit, DoCheck {
   goBack(): void {
     this.location.back();
   }
+
+
 }
