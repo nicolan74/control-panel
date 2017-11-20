@@ -1,0 +1,34 @@
+.container {
+    display: grid;
+    grid-template-columns: 50% auto;
+    
+}
+.col {
+    padding: .4em 1.3em;
+    background-color: #f1f1f2;
+    border-radius: 4px;
+}
+
+p {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    color: #929497;
+    margin-bottom: 10px;
+}
+
+
+
+.selected-value {
+    margin: 15px 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    background-color: #f1f1f2;
+    border-radius: 4px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    padding-left: 16px;
+    color: #929497;
+  }
+
+  .preview_message {
+
+    
+  }

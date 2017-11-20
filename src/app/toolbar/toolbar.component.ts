@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,11 +15,14 @@ export class ToolbarComponent implements OnInit, DoCheck {
   selectedProductId: number;
 
   IS_PRODUCT_PAGE = false;
+  IS_DETAIL_PAGE = false;
+  ID: number;
 
   constructor(
     private notificationService: NotificationService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -39,18 +43,48 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
 
     if (this.router.url === '/products') {
-      console.log('IDENTIFICATA PAGINA PRODOTTI');
+
       this.IS_PRODUCT_PAGE = true;
-      console.log('IS PRODUCT PAGE ', this.IS_PRODUCT_PAGE);
+      console.log('IDENTIFICATA PAGINA PRODOTTI in ngDoCheck: ', this.IS_PRODUCT_PAGE);
+
+    } else if (this.router.url !== '/products') {
+
+      this.IS_PRODUCT_PAGE = false;
+      console.log('IDENTIFICATA PAGINA PRODOTTI in ngDoCheck: ', this.IS_PRODUCT_PAGE);
+
     }
+
+
+    // if (this.router.url === '/detail') {
+    if (this.router.url.indexOf('/detail') !== -1) {
+
+
+      this.IS_DETAIL_PAGE = true;
+      console.log('IDENTIFICATA PAGINA DETTAGLIO PRODOTTO in ngDoCheck: ', this.IS_DETAIL_PAGE);
+
+    // } else if (this.router.url !== '/detail') {
+    } else if (this.router.url.indexOf('/detail') === -1) {
+      this.IS_DETAIL_PAGE = false;
+      console.log('IDENTIFICATA PAGINA DETTAGLIO PRODOTTO in ngDoCheck: ', this.IS_DETAIL_PAGE);
+
+
+    }
+
+  }
+
+  goToselectedOptionDetailProduct() {
+
+    this.router.navigate(['/detail/' + this.selectedProductId]);
+    console.log('STO CHIAMANDO goToselectedOption IN TOOLBAR COMP ');
+
   }
 
   goToselectedOption() {
     if (this.notificationTypeSelected === 'Messaggio + link a contenuto') {
       this.router.navigate(['/products']);
-      
+
       if (this.IS_PRODUCT_PAGE) {
-        this.router.navigate(['/detail/' + this.selectedProductId ]);
+        this.router.navigate(['/detail/' + this.selectedProductId]);
       }
 
     } else if (this.notificationTypeSelected === 'Messaggio + link a pagina web') {

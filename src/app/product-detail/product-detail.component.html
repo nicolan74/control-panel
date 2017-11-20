@@ -1,13 +1,52 @@
-<div *ngIf="product">
- 
-    <img src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C"
-      style="width: 150px !important; height: auto !important;" />
+<div class="container">
+  <div class="col" style="margin-right: 10px;">
+    <div>
+      <p>Messaggio</p>
+      <input  [(ngModel)]="audience" type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important">
+    </div>
+  <!-- <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br> -->
+  </div>
+
+  <div class="col_preview">
+    <p>DESTINATARI</p>
+    <div class="selected-value">
+      <span *ngIf="selected_audience == 'Invia a tutti' " >
+        <p style="font-size:0.9em"> INVIA A TUTTI </p>
+      </span>
+      <span *ngIf="selected_audience == 'Invia ad utenti test' " >
+        <p style="font-size:0.9em"> INVIA AGLI UTENTI TEST</p>
+      </span>
+
+    </div>
+
+    <p>ANTEPRIMA</p>
+    <div class="selected-value" style="padding-right:16px !important">
+      <div class="preview_message">
+
+        <mat-card>
+          <p>EUROFOOD</p>
+          <p style="font-size:0.9em; min-height:17px">{{audience}}</p>
+        </mat-card>
+      </div>
+    </div>
   
-  <!-- <div>
-      <span>id: </span> {{selectedProduct.id}}
-    </div> -->
-  <h2> {{product.name | uppercase}}</h2>
+    <div *ngIf="product">
+      <p>CONTENUTO COLLEGATO</p>
+        <div class="selected-value" style="padding-right:16px !important">
+          <div class="product_preview" style="padding-right:120px; padding-left:120px">
+            <mat-card>
+              <img src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C"
+              style="width: 120px !important; height: auto !important; margin: auto; display:block" />
 
-  <button (click)="goBack()">go back</button>
+              <!-- <div>
+              <span>id: </span> {{selectedProduct.id}}
+              </div> -->
+              <p style="text-align:center"> {{product.name | uppercase}}</p>
+            </mat-card>
+          </div>
 
-</div>
+          <!-- <button (click)="goBack()">go back</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

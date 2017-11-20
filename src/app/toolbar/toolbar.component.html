@@ -13,7 +13,20 @@
         <mat-icon>person</mat-icon> 
        </button> -->
        <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
-       <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOption()">NEXT</button>
+        
+       <span *ngIf="!IS_PRODUCT_PAGE">
+          <span *ngIf="!IS_DETAIL_PAGE">
+            <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOption()">NEXT</button>
+          </span>
+        </span>
+          <span *ngIf="IS_PRODUCT_PAGE">
+             <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOptionDetailProduct()">NEXT*</button>
+          </span>
+
+          
+          <span *ngIf="IS_DETAIL_PAGE">
+            <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOptionDetailProduct()">CONFERMA</button>
+          </span>
   
     </mat-toolbar-row>
   </mat-toolbar>
