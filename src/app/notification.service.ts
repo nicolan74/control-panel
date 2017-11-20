@@ -12,6 +12,8 @@ export class NotificationService {
   notificationTypeSelected: string;
   audienceSelected: string;
   selectedProductId: any;
+  inputIsEmpty: any;
+
 
   constructor(
     private http: Http,
@@ -123,6 +125,13 @@ export class NotificationService {
     this.selectedProductId = productId;
     console.log('Notification Service COMP -> PRODOTTO SELEZIONATO: ', `${productId}`);
   }
+
+  /** IN PRODUCT DETAIL VIENE PASSATO IL VALORE */
+  getInputIsEmpty(isEmpty): void {
+    this.inputIsEmpty = isEmpty;
+    console.log('Notification Service COMP -> INPUT IS EMPTY: ', `${isEmpty}`);
+  }
+ 
 
   // selectedOption(notificatioType): void {
   //   console.log('Notification Service COMP -> TIPO NOTIFICA SELEZIONATA: ', `${notificatioType}`);

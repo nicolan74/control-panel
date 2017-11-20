@@ -15,6 +15,8 @@ export class ProductDetailComponent implements OnInit {
   product: Product;
   product_id: number;
   selected_audience: any;
+  notification_message: string;
+  INPUT_IS_EMPTY = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +34,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
+  onKey(event: any) {
+    this.notification_message = event.target.value;
+    console.log('notification_message', this.notification_message);
+    this.INPUT_IS_EMPTY = false;
+    console.log('INPUT_IS_EMPTY ', this.INPUT_IS_EMPTY);
 
+    /** PASSO IL VALORE A NOTIFICATION SERVICE */
+    this.notificationService.getInputIsEmpty(this.INPUT_IS_EMPTY);
+  }
   /**
    * DETTAGLIO DEL PRODOTTO PER VISUALIZZARLO NELL'ANTEPRIMA
    */

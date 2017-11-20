@@ -18,6 +18,10 @@ export class ToolbarComponent implements OnInit, DoCheck {
   IS_DETAIL_PAGE = false;
   ID: number;
 
+  PRODUCT_DETAIL_INPUT_IS_EMPTY: boolean;
+  DISABLE_CONFIRM_BTN = true;
+
+
   constructor(
     private notificationService: NotificationService,
     private router: Router,
@@ -33,6 +37,10 @@ export class ToolbarComponent implements OnInit, DoCheck {
     // }
 
   }
+  confirmData() {
+    
+
+  }
 
   ngDoCheck() {
     this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
@@ -41,6 +49,19 @@ export class ToolbarComponent implements OnInit, DoCheck {
     this.selectedProductId = this.notificationService.selectedProductId;
     console.log('TOOLBAR COMP -> ID PRODOTTO SELEZIONATO: ', this.selectedProductId);
 
+    /** IL VALORE E' PASSATO DA NOTIFICATION SERVICE A CUI E' PASSATO DA PRODUCT DETAIL */
+    this.PRODUCT_DETAIL_INPUT_IS_EMPTY = this.notificationService.inputIsEmpty;
+    console.log('TOOLBAR COMP -> PRODUCT_DETAIL_INPUT_IS_EMPTY: ', this.PRODUCT_DETAIL_INPUT_IS_EMPTY);
+
+    if (this.PRODUCT_DETAIL_INPUT_IS_EMPTY === false) {
+
+      this.DISABLE_CONFIRM_BTN = false;
+
+    } else {
+
+      this.DISABLE_CONFIRM_BTN = true;
+
+    }
 
     if (this.router.url === '/products') {
 
@@ -62,7 +83,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
       this.IS_DETAIL_PAGE = true;
       console.log('IDENTIFICATA PAGINA DETTAGLIO PRODOTTO in ngDoCheck: ', this.IS_DETAIL_PAGE);
 
-    // } else if (this.router.url !== '/detail') {
+      // } else if (this.router.url !== '/detail') {
     } else if (this.router.url.indexOf('/detail') === -1) {
       this.IS_DETAIL_PAGE = false;
       console.log('IDENTIFICATA PAGINA DETTAGLIO PRODOTTO in ngDoCheck: ', this.IS_DETAIL_PAGE);

@@ -2,7 +2,7 @@
   <div class="col" style="margin-right: 10px;">
     <div>
       <p>Messaggio</p>
-      <input  [(ngModel)]="audience" type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important">
+      <input (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important">
     </div>
   <!-- <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br> -->
   </div>
@@ -25,7 +25,7 @@
 
         <mat-card>
           <p>EUROFOOD</p>
-          <p style="font-size:0.9em; min-height:17px">{{audience}}</p>
+          <p style="font-size:0.9em; min-height:17px">{{notification_message}}</p>
         </mat-card>
       </div>
     </div>
@@ -49,4 +49,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="confirmIsClicked">
+
+    CONFIRM
   </div>

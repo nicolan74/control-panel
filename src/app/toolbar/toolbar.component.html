@@ -25,7 +25,8 @@
 
           
           <span *ngIf="IS_DETAIL_PAGE">
-            <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOptionDetailProduct()">CONFERMA</button>
+            <!-- <button mat-raised-button style="background-color: #FF950D" (click)="confirmData()" [disabled]="true" >CONFERMA</button> -->
+            <button mat-raised-button color="accent" (click)="confirmData()" [disabled]=DISABLE_CONFIRM_BTN >CONFERMA</button>
           </span>
   
     </mat-toolbar-row>
