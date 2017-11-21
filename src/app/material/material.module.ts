@@ -1,7 +1,7 @@
 // tslint:disable:max-line-length
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCardModule, MatGridListModule, MatRadioModule, MatInputModule, MatProgressBarModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCardModule, MatGridListModule, MatRadioModule, MatInputModule, MatProgressBarModule, MatSelectModule, MatDialogModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -15,7 +15,8 @@ import { MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCar
     MatRadioModule,
     MatInputModule,
     MatProgressBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -27,7 +28,8 @@ import { MatButtonModule, MatToolbarModule, MatIconModule, MatListModule, MatCar
     MatRadioModule,
     MatInputModule,
     MatProgressBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   declarations: []
 })

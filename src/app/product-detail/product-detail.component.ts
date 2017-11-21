@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 import { SearchProductService } from '../search-product.service';
 import { Product } from '../../models/product';
 import { NotificationService } from '../notification.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,7 +20,8 @@ export class ProductDetailComponent implements OnInit, DoCheck {
   selected_audience: any;
   notification_message: string;
   INPUT_IS_EMPTY = true;
-  REQUEST_COMPLETE = false;
+  REQUEST_COMPLETE: boolean;
+  SEND_MSG_IS_CLICKED = false;
 
   confirm_is_clicked = false;
 
@@ -25,9 +29,12 @@ export class ProductDetailComponent implements OnInit, DoCheck {
     private route: ActivatedRoute,
     private location: Location,
     private searchProductService: SearchProductService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public dialog: MatDialog,
+    private router: Router,
   ) {
     // console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
+
   }
 
   ngOnInit() {
@@ -84,10 +91,34 @@ export class ProductDetailComponent implements OnInit, DoCheck {
 
   sendNotification(message) {
     this.REQUEST_COMPLETE = false;
+    this.SEND_MSG_IS_CLICKED = true;
+    console.log('1) REQUEST VALUE (GET IB P-D)', this.REQUEST_COMPLETE);
     // console.log(`Massage entered by user: ${message.value}`);
     // this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.product_id}`);
 
     console.log(`Massage entered by user: ${this.notification_message}`);
     this.notificationService.oneSignalNotificationLinkedToProduct(`${this.notification_message}`, `${this.product_id}`);
+
+    this.notificationService.REQUEST_COMPLETE.subscribe(
+      value => {
+        console.log('P-D request is complete', value);
+        this.REQUEST_COMPLETE = value;
+        console.log('2) REQUEST VALUE (GET IB P-D)', this.REQUEST_COMPLETE);
+
+        if (this.REQUEST_COMPLETE === true) {
+
+          this.openDialog();
+          this.router.navigate(['/dashboard']);
+
+        }
+      });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogWindowComponent, {
+      // height: '400px',
+      // width: '600px'
+      // data: { name: this.name, animal: this.animal }
+    });
   }
 }

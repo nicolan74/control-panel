@@ -4,6 +4,8 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { ONESIGNAL_EUROFOOD_APP_ID, ONESIGNAL_HEADER_AUTH_REST_API_KEYS, ONESIGNAL_POST_NOTIFICATION_BASE_URL, ONESIGNAL_GET_EUROFOOD_DEVICES_BASE_URL } from './conf';
 import { Observable } from 'rxjs/Observable';
 import { Devices } from '../models/onesignal_devices';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
 
 
 @Injectable()
@@ -16,7 +18,10 @@ export class NotificationService {
 
   confirmIsClicked: any;
 
-  REQUEST_COMPLETE = false;
+  // REQUEST_COMPLETE = false;
+
+  // public mySubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public REQUEST_COMPLETE: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: Http,
@@ -49,12 +54,16 @@ export class NotificationService {
       },
       errMsg => {
         console.log('* ERROR *');
-        this.REQUEST_COMPLETE = false;
-        console.log('REQUEST_COMPLETE', this.REQUEST_COMPLETE);
+        // thi
+        this.REQUEST_COMPLETE.next(false);
+        // console.log('REQUEST_COMPLETE', this.REQUEST_COMPLETE);
       },
       () => {
         console.log('* COMPLETE *');
-        this.REQUEST_COMPLETE = true;
+
+        // this.REQUEST_COMPLETE = true;
+        // const myValue = 123;
+        this.REQUEST_COMPLETE.next(true);
       }
 
     );

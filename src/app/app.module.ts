@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SearchProductService } from './search-product.service';
 import { ProductsComponent } from './products/products.component';
-import { NotificationService  } from './notification.service';
+import { NotificationService } from './notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { NotificationMessageComponent } from './notification-message/notification-message.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 
 
 
@@ -26,7 +27,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     ProductDetailComponent,
     NotificationMessageComponent,
     ToolbarComponent,
-    
+    DialogWindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +36,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule
+  ],
+  entryComponents: [
+    DialogWindowComponent,
   ],
   providers: [SearchProductService, NotificationService],
   bootstrap: [AppComponent]

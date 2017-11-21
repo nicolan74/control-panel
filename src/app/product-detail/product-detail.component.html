@@ -76,9 +76,17 @@
         <p style="font-size:0.9em; border:1px solid #dedede; padding:5px"> {{product.name}}</p>
       </div>
 
-      <div style="text-align: center; background-color: #f1f1f2; margin-top: 25px; padding-top:25px; padding-bottom:25px;">
+      <div  style="text-align: center; background-color: #f1f1f2; margin-top: 25px; padding-top:25px; padding-bottom:25px; min-height:36px">
+        <span *ngIf="SEND_MSG_IS_CLICKED === false"> 
           <button mat-raised-button color="accent" (click)="sendNotification()">INVIA MESSAGGIO</button>
+        </span> 
+        <span *ngIf="REQUEST_COMPLETE === false">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </span>
       </div>
 
+      
     </div>
   </div>
+
+  <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
