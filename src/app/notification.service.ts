@@ -14,6 +14,9 @@ export class NotificationService {
   selectedProductId: any;
   inputIsEmpty: any;
 
+  confirmIsClicked: any;
+
+  REQUEST_COMPLETE = false;
 
   constructor(
     private http: Http,
@@ -33,7 +36,8 @@ export class NotificationService {
     const body = {
       'app_id': ONESIGNAL_EUROFOOD_APP_ID,
       'contents': { 'en': `${message}` },
-      'included_segments': ['All'],
+      // 'included_segments': ['All'],
+      'included_segments': ['Test Users'],
       'data': { 'id': `${selectedProduct}` }
     };
 
@@ -42,7 +46,18 @@ export class NotificationService {
       .map(res => res.json())
       .subscribe(data => {
         console.log('---> POST REQUEST RESPONSE (MESSAGE AND LINK TO PRODUCT) ', data);
-      });
+      },
+      errMsg => {
+        console.log('* ERROR *');
+        this.REQUEST_COMPLETE = false;
+        console.log('REQUEST_COMPLETE', this.REQUEST_COMPLETE);
+      },
+      () => {
+        console.log('* COMPLETE *');
+        this.REQUEST_COMPLETE = true;
+      }
+
+    );
   }
 
   /**
@@ -131,7 +146,12 @@ export class NotificationService {
     this.inputIsEmpty = isEmpty;
     console.log('Notification Service COMP -> INPUT IS EMPTY: ', `${isEmpty}`);
   }
- 
+
+  getIsConfirmClicked(isClicked): void {
+    this.confirmIsClicked = isClicked;
+    console.log('Notification Service COMP -> CONFIRM IS CLICKED: ', `${isClicked}`);
+  }
+
 
   // selectedOption(notificatioType): void {
   //   console.log('Notification Service COMP -> TIPO NOTIFICA SELEZIONATA: ', `${notificatioType}`);

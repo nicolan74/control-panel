@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -21,6 +22,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
   PRODUCT_DETAIL_INPUT_IS_EMPTY: boolean;
   DISABLE_CONFIRM_BTN = true;
 
+  confirmClicked = false;
+
 
   constructor(
     private notificationService: NotificationService,
@@ -37,10 +40,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
     // }
 
   }
-  confirmData() {
-    
 
-  }
 
   ngDoCheck() {
     this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
@@ -52,6 +52,9 @@ export class ToolbarComponent implements OnInit, DoCheck {
     /** IL VALORE E' PASSATO DA NOTIFICATION SERVICE A CUI E' PASSATO DA PRODUCT DETAIL */
     this.PRODUCT_DETAIL_INPUT_IS_EMPTY = this.notificationService.inputIsEmpty;
     console.log('TOOLBAR COMP -> PRODUCT_DETAIL_INPUT_IS_EMPTY: ', this.PRODUCT_DETAIL_INPUT_IS_EMPTY);
+
+    this.confirmClicked = this.notificationService.confirmIsClicked;
+    console.log('TOOLBAR COMP -> this.confirmClicked : ', this.confirmClicked);
 
     if (this.PRODUCT_DETAIL_INPUT_IS_EMPTY === false) {
 
@@ -93,6 +96,17 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
   }
 
+  confirmData(isClicked) {
+    // this.router.navigate(['send', {term: this.notificationTypeSelected,  }]);
+    this.confirmClicked = true;
+    this.notificationService.getIsConfirmClicked(true);
+
+  }
+  annulConfirmData(isClicked) {
+    this.confirmClicked = false;
+    this.notificationService.getIsConfirmClicked(false);
+  }
+
   goToselectedOptionDetailProduct() {
 
     this.router.navigate(['/detail/' + this.selectedProductId]);
@@ -118,6 +132,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
   goBack(): void {
     this.location.back();
+    this.confirmClicked = false;
+    this.notificationService.getIsConfirmClicked(false);
   }
 
 

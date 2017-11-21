@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="!confirm_is_clicked" class="container">
   <div class="col" style="margin-right: 10px;">
     <div>
       <p>Messaggio</p>
@@ -50,7 +50,35 @@
       </div>
     </div>
   </div>
-  <div *ngIf="confirmIsClicked">
+  <div *ngIf="confirm_is_clicked" >
+    <div class="confirm_container">
+    
+      <div>
+        <p style="font-size:20px">Messaggio</p>
+        <hr>
+        <p style="font-size:0.9em; border:1px solid #dedede; padding:5px">{{notification_message}}</p>
+      </div>
+    
+      <div style="margin-top:30px" >
+        <p style="font-size:20px">Destinatari</p>
+        <hr>
+        <span *ngIf="selected_audience == 'Invia a tutti' " >
+          <p style="font-size:0.9em; border:1px solid #dedede; padding:5px"> Invia a tutti </p>
+        </span>
+        <span *ngIf="selected_audience == 'Invia ad utenti test' " >
+          <p style="font-size:0.9em; border:1px solid #dedede; padding:5px"> Invia a utenti test</p>
+        </span>
+      </div>
+    
+      <div style="margin-top:30px">
+        <p style="font-size:20px">Contenuto collegato</p>
+        <hr>
+        <p style="font-size:0.9em; border:1px solid #dedede; padding:5px"> {{product.name}}</p>
+      </div>
 
-    CONFIRM
+      <div style="text-align: center; background-color: #f1f1f2; margin-top: 25px; padding-top:25px; padding-bottom:25px;">
+          <button mat-raised-button color="accent" (click)="sendNotification()">INVIA MESSAGGIO</button>
+      </div>
+
+    </div>
   </div>

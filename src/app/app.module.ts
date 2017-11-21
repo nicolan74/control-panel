@@ -17,6 +17,7 @@ import { NotificationMessageComponent } from './notification-message/notificatio
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     DashboardComponent,
     ProductDetailComponent,
     NotificationMessageComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    
   ],
   imports: [
     BrowserModule,

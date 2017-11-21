@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { SearchProductService } from '../search-product.service';
@@ -11,19 +11,24 @@ import { NotificationService } from '../notification.service';
   styleUrls: ['./product-detail.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, DoCheck {
   product: Product;
   product_id: number;
   selected_audience: any;
   notification_message: string;
   INPUT_IS_EMPTY = true;
+  REQUEST_COMPLETE = false;
+
+  confirm_is_clicked = false;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private searchProductService: SearchProductService,
     private notificationService: NotificationService
-  ) { }
+  ) {
+    // console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
+  }
 
   ngOnInit() {
     this.getProduct();
@@ -33,6 +38,10 @@ export class ProductDetailComponent implements OnInit {
     console.log('AUDIENCE SELECTED GET IN PRODUCT DETAIL', this.selected_audience);
   }
 
+  ngDoCheck() {
+    console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
+    this.confirm_is_clicked = this.notificationService.confirmIsClicked;
+  }
 
   onKey(event: any) {
     this.notification_message = event.target.value;
@@ -42,6 +51,7 @@ export class ProductDetailComponent implements OnInit {
 
     /** PASSO IL VALORE A NOTIFICATION SERVICE */
     this.notificationService.getInputIsEmpty(this.INPUT_IS_EMPTY);
+    // this.notificationService.getInputMessage(this.notification_message);
   }
   /**
    * DETTAGLIO DEL PRODOTTO PER VISUALIZZARLO NELL'ANTEPRIMA
@@ -64,9 +74,20 @@ export class ProductDetailComponent implements OnInit {
     this.location.back();
   }
 
-  sendNotification(message) {
-    console.log(`Massage entered by user: ${message.value}`);
+  // this.confirmClicked = this.notificationService.confirmIsClicked;
+  getConfirmIsClicked() {
+    console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
+  }
+  // this.notificationService.getIsConfirmClicked(isClicked) {
 
-    this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.product_id}`);
+  // }
+
+  sendNotification(message) {
+    this.REQUEST_COMPLETE = false;
+    // console.log(`Massage entered by user: ${message.value}`);
+    // this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.product_id}`);
+
+    console.log(`Massage entered by user: ${this.notification_message}`);
+    this.notificationService.oneSignalNotificationLinkedToProduct(`${this.notification_message}`, `${this.product_id}`);
   }
 }
