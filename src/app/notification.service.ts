@@ -4,7 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { ONESIGNAL_EUROFOOD_APP_ID, ONESIGNAL_HEADER_AUTH_REST_API_KEYS, ONESIGNAL_POST_NOTIFICATION_BASE_URL, ONESIGNAL_GET_EUROFOOD_DEVICES_BASE_URL } from './conf';
 import { Observable } from 'rxjs/Observable';
 import { Devices } from '../models/onesignal_devices';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 
@@ -16,7 +16,7 @@ export class NotificationService {
   selectedProductId: any;
   inputIsEmpty: any;
 
-  confirmIsClicked: any;
+  confirmIsClicked = false;
 
   // REQUEST_COMPLETE = false;
 
@@ -32,7 +32,7 @@ export class NotificationService {
    * @param message
    * @param selectedProduct
    */
-  oneSignalNotificationLinkedToProduct(message, selectedProduct): void {
+  oneSignalNotificationLinkedToProduct(message, segment, selectedProduct): void {
     const headers = new Headers();
     headers.append('Content-type', 'application/json');
     headers.append('Authorization', ONESIGNAL_HEADER_AUTH_REST_API_KEYS);
@@ -42,7 +42,8 @@ export class NotificationService {
       'app_id': ONESIGNAL_EUROFOOD_APP_ID,
       'contents': { 'en': `${message}` },
       // 'included_segments': ['All'],
-      'included_segments': ['Test Users'],
+      // 'included_segments': ['Test Users'],
+      'included_segments': [`${segment}` ],
       'data': { 'id': `${selectedProduct}` }
     };
 

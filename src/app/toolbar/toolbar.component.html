@@ -12,7 +12,9 @@
       <button mat-icon-button (click)="showInfo(link)">
         <mat-icon>person</mat-icon> 
        </button> -->
-       <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
+      <span *ngIf="!IS_DASHBOARD_PAGE">
+        <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
+      </span>
         
        <span *ngIf="!IS_PRODUCT_PAGE">
           <span *ngIf="!IS_DETAIL_PAGE">
@@ -20,7 +22,8 @@
           </span>
         </span>
           <span *ngIf="IS_PRODUCT_PAGE">
-             <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOptionDetailProduct()">NEXT*</button>
+             <!-- <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOptionDetailProduct()" [disabled]=DISABLE_NEXT_BTN>NEXT*</button> -->
+             <button mat-raised-button  color="accent" (click)="goToselectedOptionDetailProduct()" [disabled]=DISABLE_NEXT_BTN>NEXT*</button>
           </span>
 
           
@@ -30,7 +33,7 @@
               <button mat-raised-button color="accent" (click)="confirmData()" [disabled]=DISABLE_CONFIRM_BTN >CONFERMA</button>
             </span>
             <span *ngIf="confirmClicked">
-                <button mat-raised-button color="warning" (click)="annulConfirmData()">ANNULLA</button>
+                <button mat-raised-button color="warn" (click)="annulConfirmData()">ANNULLA</button>
             </span>
           </span>
   

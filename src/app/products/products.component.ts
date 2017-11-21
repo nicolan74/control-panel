@@ -87,6 +87,19 @@ export class ProductsComponent implements OnInit {
     console.log('Selected Product - ID DEFAULT IMAGE ', this.selectedProduct.id_default_image);
 
     this.notificationService.getSelectedProduct(this.selectedProduct.id);
+
+    // for (let i = 0; i < this.products.length; i++) {
+
+    //   if (this.products[i].id === this.selectedProduct.id) {
+
+    //     console.log('ID PRODOTTO SELEZIONATO', this.products[i].id);
+    //     console.log('PRODOTTO SELEZIONATO', this.products[i]);
+    //     console.log('THIS PRODUCTS ', this.products);
+    //     this.products.unshift(this.selectedProduct);
+
+    //   }
+    // }
+
   }
 
   sendNotification(message) {
@@ -110,7 +123,7 @@ export class ProductsComponent implements OnInit {
     //     console.log('--->RESPONSE ', data);
     //   });
 
-    this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.selectedProduct.id}`);
+    // this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.selectedProduct.id}`);
   }
 
 }

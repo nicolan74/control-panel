@@ -1,3 +1,4 @@
+// tslint:disable:max-line-length
 import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -24,6 +25,7 @@ export class ProductDetailComponent implements OnInit, DoCheck {
   SEND_MSG_IS_CLICKED = false;
 
   confirm_is_clicked = false;
+  segment: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +44,7 @@ export class ProductDetailComponent implements OnInit, DoCheck {
 
     /** 'GET' L'AUDIENCE SELEZIONATA DAL NOTIFICATION SERVICE CHE A SUA VOLTA 'GET' DAL DASHBOARD COMP  */
     this.selected_audience = this.notificationService.audienceSelected;
-    console.log('AUDIENCE SELECTED GET IN PRODUCT DETAIL', this.selected_audience);
+    console.log('-- -- -- >AUDIENCE SELECTED GET IN PRODUCT DETAIL', this.selected_audience);
   }
 
   ngDoCheck() {
@@ -52,7 +54,7 @@ export class ProductDetailComponent implements OnInit, DoCheck {
 
   onKey(event: any) {
     this.notification_message = event.target.value;
-    console.log('notification_message', this.notification_message);
+    console.log('-- -- >notification_message', this.notification_message);
     this.INPUT_IS_EMPTY = false;
     console.log('INPUT_IS_EMPTY ', this.INPUT_IS_EMPTY);
 
@@ -89,7 +91,9 @@ export class ProductDetailComponent implements OnInit, DoCheck {
 
   // }
 
-  sendNotification(message) {
+
+
+  sendNotification() {
     this.REQUEST_COMPLETE = false;
     this.SEND_MSG_IS_CLICKED = true;
     console.log('1) REQUEST VALUE (GET IB P-D)', this.REQUEST_COMPLETE);
@@ -97,7 +101,12 @@ export class ProductDetailComponent implements OnInit, DoCheck {
     // this.notificationService.oneSignalNotificationLinkedToProduct(`${message.value}`, `${this.product_id}`);
 
     console.log(`Massage entered by user: ${this.notification_message}`);
-    this.notificationService.oneSignalNotificationLinkedToProduct(`${this.notification_message}`, `${this.product_id}`);
+    if (this.selected_audience === 'Invia ad utenti test') {
+      this.segment = 'Test Users';
+    } else {
+      this.segment = 'All';
+    }
+    this.notificationService.oneSignalNotificationLinkedToProduct(`${this.notification_message}`, `${this.segment}`, `${this.product_id}`);
 
     this.notificationService.REQUEST_COMPLETE.subscribe(
       value => {

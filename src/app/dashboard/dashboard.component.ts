@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
   }
   changeAudienceSelection(audienceSelected) {
     this.notificationService.getAudienceSelected(this.audienceSelected);
-    console.log('IN DASHBOARD AUDIENCE SELECTED ', this.audienceSelected);
+    console.log('-- -- > IN DASHBOARD AUDIENCE SELECTED ', this.audienceSelected);
   }
 
   /**
