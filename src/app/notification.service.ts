@@ -14,7 +14,7 @@ export class NotificationService {
   notificationTypeSelected: string;
   audienceSelected: string;
   selectedProductId: any;
-  inputIsEmpty: any;
+  inputMsgLengt: any;
 
   confirmIsClicked = false;
 
@@ -146,15 +146,16 @@ export class NotificationService {
     console.log('Notification Service COMP -> AUDIENCE SELEZIONATA: ', `${audienceSelected}`);
   }
 
+  /** VIENE SETTATO DAL COMPONENTE PRODUCTS SULL'ONSELECT DI UN PRODOTTO */
   getSelectedProduct(productId): void {
     this.selectedProductId = productId;
-    console.log('Notification Service COMP -> PRODOTTO SELEZIONATO: ', `${productId}`);
+    console.log('Notification Service COMP -> ID PRODOTTO SELEZIONATO: ', `${productId}`);
   }
 
-  /** IN PRODUCT DETAIL VIENE PASSATO IL VALORE */
-  getInputIsEmpty(isEmpty): void {
-    this.inputIsEmpty = isEmpty;
-    console.log('Notification Service COMP -> INPUT IS EMPTY: ', `${isEmpty}`);
+  /** IN PRODUCT DETAIL VIENE PASSATO IL VALORE VIENE 'GET' DA TOOLBAR  */
+  setMessageLenght(msgLenght): void {
+    this.inputMsgLengt = msgLenght;
+    console.log('Notification Service COMP -> P-D INPUT LENGHT: ', `${msgLenght}`);
   }
 
   getIsConfirmClicked(isClicked): void {

@@ -19,6 +19,17 @@ p {
     margin-bottom:16px;
 }
 
+.selected-value {
+    margin: 15px 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    background-color: #f1f1f2;
+    border-radius: 4px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    padding-left: 16px;
+    color: #929497;
+  }
+
 /* .half {
     background-color: #f1f1f2
 } */

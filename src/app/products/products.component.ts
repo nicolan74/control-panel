@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { SearchProductService } from '../search-product.service';
 import { Product } from '../../models/product';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -14,12 +14,14 @@ import { Subject } from 'rxjs/Subject';
   styleUrls: ['./products.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, DoCheck {
   products: Product[];
   originalProducts: Product[];
   selectedProduct: Product;
   subscription: Subscription;
   currentTerm: string;
+
+  selectedProductId: number;
 
   // http: Http;
   results: Object;
@@ -37,6 +39,17 @@ export class ProductsComponent implements OnInit {
       this.originalProducts = products;
       console.log('THIS ORIGINAL PRODUCTS ', this.originalProducts);
     });
+  }
+
+  ngDoCheck() {
+    /**
+     *  ENTRANDO NELLA LISTA DEI PRODOTTI IL BTN NEXT E' DISABILITATO SE NESSUN PRODOTTO E' SELEZIONATO
+     *  PERCHè IN QUESTO COMPONENTE SULL'ONSELECT VIENE INVIATO L'ID DEL PRODOTTO SELEZIONATO AL COMP. TOOLBAR
+     *  (TRAMITE IL NOTIFICATION SERVICE) CHE NE GESTISCE IL DISABLE/ENABLE TRAMITE IL GET CHE FA NEL MERODO ngDoCheck
+     *  EFFETTUANDO IL BACK IN QUESTO COMP IL VALORE DELL'ID IN ngDoCheck DEL COMP TOOLBAR NON VIENE AGGIORNATO
+     *  (DOVREBBE ESSERE undefined IN MODO CHE IL PULSANTE NEXT RISULTI NUOVAMENTE DISABILITATO)
+     *  E RIMANE QUELLO INIZIALMENTE SELEZIONATO. SETTANDOLO ANCHE DAL METODO ngDoCheck DI QUESTO COMPONENTE RISOLVE IL PROBLEMA  */
+    this.notificationService.getSelectedProduct(this.selectedProductId);
   }
 
   search(searchParam) {
@@ -81,6 +94,7 @@ export class ProductsComponent implements OnInit {
 
   onSelect(product: Product): void {
     this.selectedProduct = product;
+    this.selectedProductId = this.selectedProduct.id;
     console.log('Selected Product - OBJECT ', this.selectedProduct);
     console.log('Selected Product - ID ', this.selectedProduct.id);
     console.log('Selected Product - NAME ', this.selectedProduct.name);

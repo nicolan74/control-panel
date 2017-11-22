@@ -23,9 +23,13 @@ export class ProductDetailComponent implements OnInit, DoCheck {
   INPUT_IS_EMPTY = true;
   REQUEST_COMPLETE: boolean;
   SEND_MSG_IS_CLICKED = false;
+  NO_SELECTED_AUDIENCE = false;
+
+  IS_DISABLE_SEND_MSG_BTN = false;
 
   confirm_is_clicked = false;
   segment: string;
+  message_lenght: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,31 +44,70 @@ export class ProductDetailComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    console.log(' -- ---- --- -- -- product detail component NG ON INIT ');
     this.getProduct();
 
     /** 'GET' L'AUDIENCE SELEZIONATA DAL NOTIFICATION SERVICE CHE A SUA VOLTA 'GET' DAL DASHBOARD COMP  */
     this.selected_audience = this.notificationService.audienceSelected;
-    console.log('-- -- -- >AUDIENCE SELECTED GET IN PRODUCT DETAIL', this.selected_audience);
+    console.log('-- -- -- > AUDIENCE SELECTED GET IN PRODUCT DETAIL (ngOnInit)', this.selected_audience);
+
+    if (this.selected_audience === undefined) {
+      this.NO_SELECTED_AUDIENCE = true;
+      console.log(' ! this.NO_SELECTED_AUDIENCE ', this.NO_SELECTED_AUDIENCE);
+
+    } else {
+      this.NO_SELECTED_AUDIENCE = false;
+      console.log(' ! this.NO_SELECTED_AUDIENCE ', this.NO_SELECTED_AUDIENCE);
+    }
+
+    /** DISABILITO IL BTN INVIA MESSAGGIO AL VERIFICARSI DI UNA DI QUESTE CONDIZIONI */
+    // if ((this.NO_SELECTED_AUDIENCE === true) || (this.INPUT_IS_EMPTY === true) || (this.product_id)) {
+    //   this.IS_DISABLE_SEND_MSG_BTN = true;
+    // } else {
+    //   this.IS_DISABLE_SEND_MSG_BTN = false;
+    // }
   }
+
 
   ngDoCheck() {
     console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
     this.confirm_is_clicked = this.notificationService.confirmIsClicked;
+
+    this.selected_audience = this.notificationService.audienceSelected;
+    console.log('-- -- -- > AUDIENCE SELECTED GET IN PRODUCT DETAIL (ngDoCheck)', this.selected_audience);
+
+    this.notificationService.setMessageLenght(this.message_lenght);
+    console.log('-- -- -- > MESSAGE LENGHT SET IN PRODUCT DETAIL (ngDoCheck)', this.message_lenght);
   }
 
+  /** ONKEY CALCOLO LUNGHEZZA STRINGA E LA INVIO A NOTIFICATION SERVICE CHE A SUA VOLTA  */
   onKey(event: any) {
     this.notification_message = event.target.value;
     console.log('-- -- >notification_message', this.notification_message);
-    this.INPUT_IS_EMPTY = false;
-    console.log('INPUT_IS_EMPTY ', this.INPUT_IS_EMPTY);
+    this.message_lenght = this.notification_message.length;
+    console.log('- -- -- ON KEY LUNGHEZZA STRINGA ', this.message_lenght);
+    // this.notificationService.setMessageLenght(this.message_lenght);
 
-    /** PASSO IL VALORE A NOTIFICATION SERVICE */
-    this.notificationService.getInputIsEmpty(this.INPUT_IS_EMPTY);
+    //     if (message_lenght >= 2) {
+    //       this.INPUT_IS_EMPTY = false;
+    //       console.log('INPUT_IS_EMPTY ', this.INPUT_IS_EMPTY);
+    //       /** PASSO IL VALORE A NOTIFICATION SERVICE DA CUI A SUA VOLTA VA A VEDRE TOOLBAR
+    //        * PER GESTIRE IL DISABLE/ENABLE DEL BTN CONFERMA */
+    //       this.notificationService.getInputIsEmpty(this.INPUT_IS_EMPTY);
+    //     } else {
+    //       this.INPUT_IS_EMPTY = true;
+    //       console.log('INPUT_IS_EMPTY ', this.INPUT_IS_EMPTY);
+    //       /** PASSO IL VALORE A NOTIFICATION SERVICE DA CUI A SUA VOLTA VA A VEDRE TOOLBAR
+    //  * PER GESTIRE IL DISABLE/ENABLE DEL BTN CONFERMA */
+    //       this.notificationService.getInputIsEmpty(this.INPUT_IS_EMPTY);
+    //     }
+
+
+
     // this.notificationService.getInputMessage(this.notification_message);
   }
   /**
-   * DETTAGLIO DEL PRODOTTO PER VISUALIZZARLO NELL'ANTEPRIMA
-   */
+   * DETTAGLIO DEL PRODOTTO PER VISUALIZZARLO NELL'ANTEPRIMA */
   getProduct(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     console.log('ID PASSATO DA PRODUCT COMPONENT ', id);
@@ -77,20 +120,10 @@ export class ProductDetailComponent implements OnInit, DoCheck {
     });
   }
 
-
-
-  goBack(): void {
-    this.location.back();
-  }
-
-  // this.confirmClicked = this.notificationService.confirmIsClicked;
+  /** IN NOTIFICATION SERVICE VIENE 'GET' DA TOOLBAR SE IL BTN CONFERMA E' CLICCATO */
   getConfirmIsClicked() {
     console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
   }
-  // this.notificationService.getIsConfirmClicked(isClicked) {
-
-  // }
-
 
 
   sendNotification() {
@@ -117,8 +150,8 @@ export class ProductDetailComponent implements OnInit, DoCheck {
         if (this.REQUEST_COMPLETE === true) {
 
           this.openDialog();
-          this.router.navigate(['/dashboard']);
-
+          // this.router.navigate(['/dashboard']);
+          // window.location.reload();
         }
       });
   }
@@ -128,6 +161,16 @@ export class ProductDetailComponent implements OnInit, DoCheck {
       // height: '400px',
       // width: '600px'
       // data: { name: this.name, animal: this.animal }
+      disableClose: true,
+
+    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log(`Dialog result:`); // Pizza!
+    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result:`); // Pizza!
+      this.router.navigate(['/dashboard']);
+      window.location.reload();
     });
   }
 }

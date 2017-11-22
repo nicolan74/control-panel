@@ -2,7 +2,7 @@
   <div class="col" style="margin-right: 10px;">
     <div>
       <p>Messaggio</p>
-      <input (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important">
+      <input id="input_msg" (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important">
     </div>
   <!-- <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br> -->
   </div>
@@ -15,6 +15,9 @@
       </span>
       <span *ngIf="selected_audience == 'Invia ad utenti test' " >
         <p style="font-size:0.9em"> INVIA AGLI UTENTI TEST</p>
+      </span>
+      <span *ngIf="NO_SELECTED_AUDIENCE" >
+          <p style="font-size:0.9em; color: red"><strong>NESSUN DESTINATARIO SELEZIONATO!</strong></p>
       </span>
 
     </div>
@@ -68,6 +71,9 @@
         <span *ngIf="selected_audience == 'Invia ad utenti test' " >
           <p style="font-size:0.9em; border:1px solid #dedede; padding:5px"> Invia a utenti test</p>
         </span>
+        <span *ngIf="NO_SELECTED_AUDIENCE == true" >
+            <p style="font-size:0.9em; border:1px solid red; padding:5px">Nessun target selezionato! </p>
+        </span>
       </div>
     
       <div style="margin-top:30px">
@@ -78,7 +84,7 @@
 
       <div  style="text-align: center; background-color: #f1f1f2; margin-top: 25px; padding-top:25px; padding-bottom:25px; min-height:36px">
         <span *ngIf="SEND_MSG_IS_CLICKED === false"> 
-          <button mat-raised-button color="accent" (click)="sendNotification()">INVIA MESSAGGIO</button>
+          <button mat-raised-button color="accent" (click)="sendNotification()" [disabled]=IS_DISABLE_SEND_MSG_BTN>INVIA MESSAGGIO</button>
         </span> 
         <span *ngIf="REQUEST_COMPLETE === false">
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>

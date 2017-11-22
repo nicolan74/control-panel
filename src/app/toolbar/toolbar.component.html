@@ -12,7 +12,9 @@
       <button mat-icon-button (click)="showInfo(link)">
         <mat-icon>person</mat-icon> 
        </button> -->
-      <span *ngIf="!IS_DASHBOARD_PAGE">
+      <!-- <span *ngIf="!IS_DASHBOARD_PAGE"> -->
+          
+      <span *ngIf="IS_VISIBLE_BACK_BTN">
         <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
       </span>
         

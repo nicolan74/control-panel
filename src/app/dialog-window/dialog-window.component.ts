@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dialog-window',
@@ -10,13 +11,18 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class DialogWindowComponent implements OnInit {
 
   constructor(
+    private router: Router,
     public dialogRef: MatDialogRef<DialogWindowComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-    onNoClick(): void {
-      this.dialogRef.close();
-    }
+  onOkClick(): void {
+    this.dialogRef.close();
+    console.log('OK CLICKED');
+  }
 
+  // closeDialog() {
+  //   this.dialogRef.close('Pizza!');
+  // }
   ngOnInit() {
   }
 

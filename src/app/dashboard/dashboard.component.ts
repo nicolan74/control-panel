@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notification.service';
 @Component({
@@ -7,7 +7,7 @@ import { NotificationService } from '../notification.service';
   styleUrls: ['./dashboard.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, DoCheck {
   notificationTypeSelected = 'Messaggio + link a contenuto';
   audienceSelected = 'Invia a tutti';
   // notificationTypeSelected: string
@@ -42,14 +42,17 @@ export class DashboardComponent implements OnInit {
     //   }
     // });
   }
-
+  ngDoCheck() {
+    // this.notificationService.getAudienceSelected(this.audienceSelected);
+    // console.log('-- -- > -- -- > IN DASHBOARD AUDIENCE SELECTED (ngDoCheck)', this.audienceSelected);
+  }
   changeNotficationSelection(notificationTypeSelected) {
     console.log('IN DASHBOARD NOTIFICATION TYPE SELECTED ', this.notificationTypeSelected);
     this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
   }
   changeAudienceSelection(audienceSelected) {
     this.notificationService.getAudienceSelected(this.audienceSelected);
-    console.log('-- -- > IN DASHBOARD AUDIENCE SELECTED ', this.audienceSelected);
+    console.log('-- -- > -- -- > IN DASHBOARD AUDIENCE SELECTED (changeAudienceSelection)', this.audienceSelected);
   }
 
   /**
