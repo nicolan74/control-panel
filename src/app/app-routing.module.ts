@@ -4,7 +4,7 @@ import { AdditionalDataSelectionComponent } from './additional-data-selection/ad
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdditionalDataMessageComponent } from './additional-data-message/additional-data-message.component';
 import { OnlyAndLaunchurlMessageComponent } from './only-and-launchurl-message/only-and-launchurl-message.component';
-
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'products', component: AdditionalDataSelectionComponent },
   { path: 'detail/:id', component: AdditionalDataMessageComponent },
   { path: 'notification', component: OnlyAndLaunchurlMessageComponent },
-
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

@@ -13,7 +13,12 @@
         <mat-icon>person</mat-icon> 
        </button> -->
       <!-- <span *ngIf="!IS_DASHBOARD_PAGE"> -->
+          <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Logout</button>
+          </mat-menu>
           
+          <div>
       <span *ngIf="IS_VISIBLE_BACK_BTN">
         <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
       </span>
@@ -49,6 +54,10 @@
                 <button mat-raised-button color="warn" (click)="annulConfirmData()">ANNULLA</button>
             </span>
           </span>
+
+        </div>
+
+
   
     </mat-toolbar-row>
   </mat-toolbar>

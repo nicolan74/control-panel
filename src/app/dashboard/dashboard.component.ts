@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, DoCheck, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
+import { AuthenticationService } from '../../services/authentication.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -11,6 +13,8 @@ export class DashboardComponent implements OnInit, DoCheck {
   notificationTypeSelected = 'Messaggio + link a contenuto';
   audienceSelected = 'Invia a tutti';
   // notificationTypeSelected: string
+  mobHeight: any;
+  mobWidth: any;
 
   notificationOptions = [
     'Messaggio + link a contenuto',
@@ -35,12 +39,21 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   constructor(
     private router: Router,
-    private notificationService: NotificationService
-  ) { }
+    private notificationService: NotificationService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.mobHeight = (window.screen.height) + 'px';
+    this.mobWidth = (window.screen.width) + 'px';
+    console.log('+++ +++ WINDOW Height', this.mobHeight);
+    console.log('+++ +++ WINDOW Width', this.mobWidth);
+  }
 
   ngOnInit() {
     this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
     this.notificationService.getAudienceSelected(this.audienceSelected);
+
+    this.authenticationService.checkCredentials();
+
     /**
      * ANCORA NON LO USO
      */

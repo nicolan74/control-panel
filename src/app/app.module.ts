@@ -17,6 +17,8 @@ import { AdditionalDataMessageComponent } from './additional-data-message/additi
 import { OnlyAndLaunchurlMessageComponent } from './only-and-launchurl-message/only-and-launchurl-message.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
+import { LoginComponent } from './login/login.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 
@@ -29,6 +31,8 @@ import { DialogWindowComponent } from './dialog-window/dialog-window.component';
     OnlyAndLaunchurlMessageComponent,
     ToolbarComponent,
     DialogWindowComponent,
+    LoginComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,7 @@ import { DialogWindowComponent } from './dialog-window/dialog-window.component';
   entryComponents: [
     DialogWindowComponent,
   ],
-  providers: [SearchProductService, NotificationService],
+  providers: [SearchProductService, NotificationService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
