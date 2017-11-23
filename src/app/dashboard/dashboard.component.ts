@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, DoCheck, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationService } from '../notification.service';
+import { NotificationService } from '../../services/notification.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

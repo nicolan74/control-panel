@@ -1,7 +1,7 @@
 // tslint:disable:max-line-length
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { SearchProductService } from './search-product.service';
+import { SearchProductService } from '../services/search-product.service';
 import { Product } from '../models/product';
 
 @Component({

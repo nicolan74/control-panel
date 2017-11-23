@@ -1,7 +1,7 @@
 // tslint:disable:max-line-length
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { ONESIGNAL_EUROFOOD_APP_ID, ONESIGNAL_HEADER_AUTH_REST_API_KEYS, ONESIGNAL_POST_NOTIFICATION_BASE_URL, ONESIGNAL_GET_EUROFOOD_DEVICES_BASE_URL } from './conf';
+import { ONESIGNAL_EUROFOOD_APP_ID, ONESIGNAL_HEADER_AUTH_REST_API_KEYS, ONESIGNAL_POST_NOTIFICATION_BASE_URL, ONESIGNAL_GET_EUROFOOD_DEVICES_BASE_URL } from '../app/conf';
 import { Observable } from 'rxjs/Observable';
 import { Devices } from '../models/onesignal_devices';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';

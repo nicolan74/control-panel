@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Product } from '../models/product';
-import { BASE_URL, WS_KEY } from './conf';
+import { BASE_URL, WS_KEY } from '../app/conf';
 
 @Injectable()
 export class SearchProductService {

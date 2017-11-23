@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
-import { SearchProductService } from '../search-product.service';
+import { SearchProductService } from '../../services/search-product.service';
 import { Product } from '../../models/product';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { NotificationService } from '../notification.service';
+import { NotificationService } from '../../services/notification.service';
 
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';

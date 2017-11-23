@@ -2,9 +2,9 @@
 import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { SearchProductService } from '../search-product.service';
+import { SearchProductService } from '../../services/search-product.service';
 import { Product } from '../../models/product';
-import { NotificationService } from '../notification.service';
+import { NotificationService } from '../../services/notification.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { Router } from '@angular/router';

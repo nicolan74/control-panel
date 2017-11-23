@@ -1,6 +1,6 @@
 // tslint:disable:max-line-length
 import { Component, OnInit, ViewEncapsulation, DoCheck, ViewChild } from '@angular/core';
-import { NotificationService } from '../notification.service';
+import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
