@@ -1,9 +1,9 @@
 <div *ngIf="!confirm_is_clicked" class="container">
   <div class="col" style="margin-right: 10px;">
-    <div>
+    
       <p>Messaggio</p>
-      <input id="input_msg" (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important">
-    </div>
+      <input (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="testo del messaggio" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important; margin-bottom:25px">
+    
   <!-- <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br> -->
   </div>
 
@@ -34,6 +34,7 @@
     </div>
   
     <div *ngIf="product">
+
       <p>CONTENUTO COLLEGATO</p>
         <div class="selected-value" style="padding-right:16px !important">
           <div class="product_preview" style="padding-right:120px; padding-left:120px">
@@ -47,9 +48,8 @@
               <p style="text-align:center"> {{product.name | uppercase}}</p>
             </mat-card>
           </div>
-
-          <!-- <button (click)="goBack()">go back</button> -->
         </div>
+
       </div>
     </div>
   </div>

@@ -24,9 +24,12 @@
   </div>
   <div class="colHalfTwo">
       <p>TIPO DI NOTIFICA </p>
-      <div class="selected-value">{{notificationTypeSelected}}
+      <div class="selected-value"> <p style="word-wrap: break-word;">{{notificationTypeSelected}}</p>
           <span *ngIf="notificationTypeSelected == 'Messaggio + link a contenuto'">
               <p style="font-size:0.9em">Apre il dettaglio del prodotto collegato al messaggio quando l'utente clicca sulla notifica</p>
+          </span>
+          <span *ngIf="notificationTypeSelected == 'Messaggio + link a pagina web'">
+              <p style="font-size:0.9em">Apre il web browser all'URL collegato al messaggio quando l'utente clicca sulla notifica</p>
           </span>
       </div>
 

@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <span>Control-panel</span>
+      <span>Nuovo Messaggio</span>
   
-      <nav>
+      <!-- <nav>
         <a routerLink="/dashboard" routerLinkActive="active-link">Dashoard</a>
         <a routerLink="/products" routerLinkActive="active-link">Prodotti</a>
-      </nav>
+      </nav> -->
       <span class="spacer"></span>
       <!-- <button mat-button>Notifiche</button>
       
@@ -18,21 +18,32 @@
         <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
       </span>
         
-       <span *ngIf="!IS_PRODUCT_PAGE">
-          <span *ngIf="!IS_DETAIL_PAGE">
+       <!-- <span *ngIf="!IS_PRODUCT_PAGE">
+          <span *ngIf="!IS_DETAIL_PAGE"> -->
+          <!-- ****************************************************************************************************
+                VIENE VISUALIZZATO SOLO NELLA DASHBORD ESEGUE LO SWICH TRA I COMPONENTI 
+                * PRODUCTS (IN CUI C'E' LA LISTA DEI PRODOTTI - CASO: Messaggio + link a contenuto) E 
+                * NOTIFICATION MESSAGE (CASI: Solo messaggio E Messaggio + link a pagina web)
+                *************************************************************************************************-->
+          <span *ngIf="IS_DASHBOARD_PAGE"> 
             <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOption()">NEXT</button>
           </span>
-        </span>
+        <!-- </span> -->
+
+          <!-- *****************************************************************************************************
+                NELLA PRODUCT PAGE VIENE VISUALIZZATO IL NEXT ALTERNATIVO CHE INDITIZZA AL COMPONENTE PRODUCT-DETAIL
+                *************************************************************************************************-->
           <span *ngIf="IS_PRODUCT_PAGE">
              <!-- <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOptionDetailProduct()" [disabled]=DISABLE_NEXT_BTN>NEXT*</button> -->
              <button mat-raised-button  color="accent" (click)="goToselectedOptionDetailProduct()" [disabled]=DISABLE_NEXT_BTN>NEXT*</button>
           </span>
 
           
-          <span *ngIf="IS_DETAIL_PAGE">
+          <!-- <span *ngIf="IS_DETAIL_PAGE">  -->
+          <span *ngIf="IS_VISIBLE_CONFIRM_BTN"> 
             <!-- <button mat-raised-button style="background-color: #FF950D" (click)="confirmData()" [disabled]="true" >CONFERMA</button> -->
             <span *ngIf="!confirmClicked">
-              <button mat-raised-button color="accent" (click)="confirmData()" [disabled]=DISABLE_CONFIRM_BTN >CONFERMA</button>
+              <button mat-raised-button color="accent" (click)="confirmData()" [disabled]=DISABLE_CONFIRM_BTN>CONFERMA</button>
             </span>
             <span *ngIf="confirmClicked">
                 <button mat-raised-button color="warn" (click)="annulConfirmData()">ANNULLA</button>

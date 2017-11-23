@@ -43,7 +43,7 @@ export class NotificationService {
       'contents': { 'en': `${message}` },
       // 'included_segments': ['All'],
       // 'included_segments': ['Test Users'],
-      'included_segments': [`${segment}` ],
+      'included_segments': [`${segment}`],
       'data': { 'id': `${selectedProduct}` }
     };
 
@@ -67,14 +67,14 @@ export class NotificationService {
         this.REQUEST_COMPLETE.next(true);
       }
 
-    );
+      );
   }
 
   /**
    * ONLY MESSAGE
    * @param message
    */
-  sendNotificationOnlyMessage(message): void {
+  sendNotificationOnlyMessage(message, segment): void {
 
     const headers = new Headers();
     headers.append('Content-type', 'application/json');
@@ -84,7 +84,8 @@ export class NotificationService {
     const body = {
       'app_id': ONESIGNAL_EUROFOOD_APP_ID,
       'contents': { 'en': `${message}` },
-      'included_segments': ['Test Users']
+      // 'included_segments': ['Test Users']
+      'included_segments': [`${segment}`],
     };
 
     console.log('POST REQUEST BODY (ONLY MESSAGE) ', body);
@@ -92,6 +93,19 @@ export class NotificationService {
       .map(res => res.json())
       .subscribe(data => {
         console.log('---> POST REQUEST RESPONSE (ONLY MESSAGE) ', data);
+      },
+      errMsg => {
+        console.log('* ERROR *');
+        // thi
+        this.REQUEST_COMPLETE.next(false);
+        // console.log('REQUEST_COMPLETE', this.REQUEST_COMPLETE);
+      },
+      () => {
+        console.log('* COMPLETE *');
+
+        // this.REQUEST_COMPLETE = true;
+        // const myValue = 123;
+        this.REQUEST_COMPLETE.next(true);
       });
   }
 
@@ -100,7 +114,7 @@ export class NotificationService {
    * @param message
    * @param url
    */
-  sendNotificationMessageAndUrl(message, url): void {
+  sendNotificationMessageAndUrl(message, segment, url): void {
 
     const headers = new Headers();
     headers.append('Content-type', 'application/json');
@@ -110,7 +124,8 @@ export class NotificationService {
     const body = {
       'app_id': ONESIGNAL_EUROFOOD_APP_ID,
       'contents': { 'en': `${message}` },
-      'included_segments': ['All'],
+      // 'included_segments': ['All'],
+      'included_segments': [`${segment}`],
       'url': `${url}`
     };
 
@@ -119,6 +134,19 @@ export class NotificationService {
       .map(res => res.json())
       .subscribe(data => {
         console.log('---> POST REQUEST RESPONSE (MESSAGE AND URL) ', data);
+      },
+      errMsg => {
+        console.log('* ERROR *');
+        // thi
+        this.REQUEST_COMPLETE.next(false);
+        // console.log('REQUEST_COMPLETE', this.REQUEST_COMPLETE);
+      },
+      () => {
+        console.log('* COMPLETE *');
+
+        // this.REQUEST_COMPLETE = true;
+        // const myValue = 123;
+        this.REQUEST_COMPLETE.next(true);
       });
 
   }
@@ -155,7 +183,7 @@ export class NotificationService {
   /** IN PRODUCT DETAIL VIENE PASSATO IL VALORE VIENE 'GET' DA TOOLBAR  */
   setMessageLenght(msgLenght): void {
     this.inputMsgLengt = msgLenght;
-    console.log('Notification Service COMP -> P-D INPUT LENGHT: ', `${msgLenght}`);
+    console.log('Notification Service COMP -> MSG INPUT LENGHT (FROM PD-C OR FROM NM-C): ', `${msgLenght}`);
   }
 
   getIsConfirmClicked(isClicked): void {

@@ -80,7 +80,7 @@ export class ProductDetailComponent implements OnInit, DoCheck {
     console.log('-- -- -- > MESSAGE LENGHT SET IN PRODUCT DETAIL (ngDoCheck)', this.message_lenght);
   }
 
-  /** ONKEY CALCOLO LUNGHEZZA STRINGA E LA INVIO A NOTIFICATION SERVICE CHE A SUA VOLTA  */
+  /** ONKEY CALCOLO LUNGHEZZA STRINGA E LA INVIO (DA ngDoCheck()) A NOTIFICATION SERVICE DA CUI E' 'GET' DAL C TOOLBAR  */
   onKey(event: any) {
     this.notification_message = event.target.value;
     console.log('-- -- >notification_message', this.notification_message);

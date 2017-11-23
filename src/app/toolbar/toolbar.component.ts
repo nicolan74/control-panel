@@ -1,3 +1,4 @@
+// tslint:disable:max-line-length
 import { Component, OnInit, ViewEncapsulation, DoCheck, ViewChild } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import { Router } from '@angular/router';
@@ -23,11 +24,14 @@ export class ToolbarComponent implements OnInit, DoCheck {
   ID: number;
 
   PRODUCT_DETAIL_INPUT_LENGHT: any;
+  NOTIFICATION_MSG_INPUT_LENGHT: any;
+
   DISABLE_CONFIRM_BTN = true;
   DISABLE_NEXT_BTN = true;
 
   confirmClicked = false;
   IS_VISIBLE_BACK_BTN = true;
+  IS_VISIBLE_CONFIRM_BTN = false;
 
   @ViewChild('input_msg') input_msg;
 
@@ -61,6 +65,9 @@ export class ToolbarComponent implements OnInit, DoCheck {
     /** IL VALORE E' PASSATO DA NOTIFICATION SERVICE A CUI E' PASSATO DA PRODUCT DETAIL */
     this.PRODUCT_DETAIL_INPUT_LENGHT = this.notificationService.inputMsgLengt;
     console.log('! ! ! -> TOOLBAR COMP -> PRODUCT_DETAIL_INPUT_MSG_LENGHT: ', this.PRODUCT_DETAIL_INPUT_LENGHT);
+
+    this.NOTIFICATION_MSG_INPUT_LENGHT = this.notificationService.inputMsgLengt;
+    console.log('! ! ! -> TOOLBAR COMP -> NOTIFICATION_MSG_INPUT_LENGHT: ', this.NOTIFICATION_MSG_INPUT_LENGHT);
 
     /** e' inizialmente false poi  confirmData(isClicked) - vedi sotto - gli passa true */
     this.confirmClicked = this.notificationService.confirmIsClicked;
@@ -106,17 +113,21 @@ export class ToolbarComponent implements OnInit, DoCheck {
       this.IS_DASHBOARD_PAGE = false;
     }
 
-    /** SE LA PAGINA CORRENTE E' LA DASHBOARD O E' STATO CLICCATO IL BTN CONFERMA NON VISUALIZZO IL BTN BACK */
+    /**
+     * *** *** BACK_BTN *** ***
+     * SE LA PAGINA CORRENTE E' LA DASHBOARD O E' STATO CLICCATO IL BTN CONFERMA NON VISUALIZZO IL BTN BACK */
     if ((this.IS_DASHBOARD_PAGE === true) || (this.confirmClicked === true)) {
       this.IS_VISIBLE_BACK_BTN = false;
+      console.log('IS_DASHBOARD_PAGE -> :' + this.IS_DASHBOARD_PAGE + ' | CONFIRM IS Clicked -> : ' + this.confirmClicked + ' | E VISILE BACK BTN -> : ' + this.IS_VISIBLE_BACK_BTN);
     } else {
       this.IS_VISIBLE_BACK_BTN = true;
+      console.log('IS_DASHBOARD_PAGE -> :' + this.IS_DASHBOARD_PAGE + ' | CONFIRM IS Clicked -> : ' + this.confirmClicked + ' | E VISILE BACK BTN -> : ' + this.IS_VISIBLE_BACK_BTN);
     }
 
     /**
-     *  SE LA PAGINA CORRENTE E' PRODUCT DETAILS INVECE CHE NEXT* (*IL NEXT ALTERNATIVO)
-     *  VISUALIZZO IL PULSANTE CONFERMA (confirmData(isClicked)
-     *  E IL PULSANTE ANNULLA annulConfirmData */
+     * SE LA PAGINA CORRENTE E' PRODUCT DETAILS INVECE CHE NEXT* (*IL NEXT ALTERNATIVO)
+     * VISUALIZZO IL PULSANTE CONFERMA (confirmData(isClicked)
+     * E IL PULSANTE ANNULLA annulConfirmData */
     if (this.router.url.indexOf('/detail') !== -1) {
       this.IS_DETAIL_PAGE = true;
       console.log('IDENTIFICATA PAGINA DETTAGLIO PRODOTTO in ngDoCheck: ', this.IS_DETAIL_PAGE);
@@ -126,9 +137,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
     }
 
     /**
-     * SE LA PAGINA CORRENTE E' LA NOTIFICATION NASCONDO IL PULSENTE NEXT (QUELLO INIZIALE)
-     * wf 'solo messaggio' o 'messaggio + url' */
-    if (this.router.url.indexOf('/notification') !== -1) {
+     * INDIVIDUO SE LA PAGINA CORRENTE E' LA NOTIFICATION NASCONDO IL PULSENTE NEXT (QUELLO INIZIALE) */
+      if (this.router.url.indexOf('/notification') !== -1) {
       this.IS_NOTIFICATION_PAGE = true;
       console.log('IDENTIFICATA PAGINA NOTIFICATION in TOOLBAR C. (ngDoCheck): ', this.IS_NOTIFICATION_PAGE);
     } else if (this.router.url.indexOf('/notification') === -1) {
@@ -136,6 +146,18 @@ export class ToolbarComponent implements OnInit, DoCheck {
       console.log('IDENTIFICATA PAGINA NOTIFICATION in TOOLBAR C. (ngDoCheck): ', this.IS_NOTIFICATION_PAGE);
 
     }
+
+    /**
+     * SE LA PAGINA CORRENTE E' LA NOTIFICATION O PRODUCT-DETAIL PAGE
+     * VISUALIZZA IL PULSANTE CONFERMA * workflow: TUTTI */
+    if ((this.IS_DETAIL_PAGE === true) || (this.IS_NOTIFICATION_PAGE === true)) {
+      this.IS_VISIBLE_CONFIRM_BTN = true;
+    } else {
+      this.IS_VISIBLE_CONFIRM_BTN = false;
+
+    }
+
+
 
   }
 

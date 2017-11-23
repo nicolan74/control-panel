@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, DoCheck, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notification.service';
 @Component({
@@ -21,6 +21,16 @@ export class DashboardComponent implements OnInit, DoCheck {
     'Invia a tutti',
     'Invia ad utenti test',
   ];
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < 768) {
+      console.log('+++ +++ WINDOW < 768 +++ +++ ');
+    }
+    if (event.target.innerWidth > 768) {
+      console.log('+++ +++ WINDOW > 768 +++ +++');
+    }
+  }
 
 
   constructor(
@@ -45,6 +55,12 @@ export class DashboardComponent implements OnInit, DoCheck {
   ngDoCheck() {
     // this.notificationService.getAudienceSelected(this.audienceSelected);
     // console.log('-- -- > -- -- > IN DASHBOARD AUDIENCE SELECTED (ngDoCheck)', this.audienceSelected);
+    /**
+     * QUANDO SI E' NELLA DASHBOARD RIASSEGNO IL VALORE A CONFIRM IS CLICKED
+     * EVITA L'ISSUE: AD ESEMPIO SEGUO WF messaggio + link al contenuto CLICCO CONFERMA MA NN INVIO IL MESSAGGIO
+     * TORNO IN DASHBOARD E SEGUO IL WF solo messaggio. NELLA PAGINA NOTIFICATION-MESSAGE (alias NOTIFICATION) IL BTN
+     * BACK NON COMPARE PERCHE' IL VALORE DI IS CLICLED è ANCORA SETTATO A TRUE */
+    console.log('| | -> DASHBOARD CONFIRM IS CLICKED (ngDoCheck) ', this.notificationService.confirmIsClicked);
   }
   changeNotficationSelection(notificationTypeSelected) {
     console.log('IN DASHBOARD NOTIFICATION TYPE SELECTED ', this.notificationTypeSelected);
