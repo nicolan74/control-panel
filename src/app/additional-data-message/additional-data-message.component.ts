@@ -10,12 +10,12 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css'],
+  selector: 'app-additional-data-message',
+  templateUrl: './additional-data-message.component.html',
+  styleUrls: ['./additional-data-message.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductDetailComponent implements OnInit, DoCheck {
+export class AdditionalDataMessageComponent implements OnInit, DoCheck {
   product: Product;
   product_id: number;
   selected_audience: any;

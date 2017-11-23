@@ -10,11 +10,11 @@ import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'],
+  templateUrl: './additional-data-selection.component.html',
+  styleUrls: ['./additional-data-selection.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductsComponent implements OnInit, DoCheck {
+export class AdditionalDataSelectionComponent implements OnInit, DoCheck {
   products: Product[];
   originalProducts: Product[];
   selectedProduct: Product;

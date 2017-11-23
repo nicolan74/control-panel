@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SearchProductService } from './search-product.service';
-import { ProductsComponent } from './products/products.component';
+import { AdditionalDataSelectionComponent } from './additional-data-selection/additional-data-selection.component';
 import { NotificationService } from './notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -12,8 +12,8 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { NotificationMessageComponent } from './notification-message/notification-message.component';
+import { AdditionalDataMessageComponent } from './additional-data-message/additional-data-message.component';
+import { OnlyAndLaunchurlMessageComponent } from './only-and-launchurl-message/only-and-launchurl-message.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 
@@ -22,10 +22,10 @@ import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsComponent,
+    AdditionalDataSelectionComponent,
     DashboardComponent,
-    ProductDetailComponent,
-    NotificationMessageComponent,
+    AdditionalDataMessageComponent,
+    OnlyAndLaunchurlMessageComponent,
     ToolbarComponent,
     DialogWindowComponent,
   ],

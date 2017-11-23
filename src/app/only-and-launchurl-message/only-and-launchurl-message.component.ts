@@ -7,12 +7,12 @@ import { DialogWindowComponent } from '../dialog-window/dialog-window.component'
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-notification-message',
-  templateUrl: './notification-message.component.html',
-  styleUrls: ['./notification-message.component.css'],
+  selector: 'app-only-and-launchurl-message',
+  templateUrl: './only-and-launchurl-message.component.html',
+  styleUrls: ['./only-and-launchurl-message.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class NotificationMessageComponent implements OnInit, DoCheck {
+export class OnlyAndLaunchurlMessageComponent implements OnInit, DoCheck {
   userSelection: any;
   notification_message: string;
   message_lenght: number;
