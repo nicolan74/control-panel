@@ -1,3 +1,5 @@
+<span *ngIf="!IS_LOGIN_PAGE">
+
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span *ngIf="!IS_LOGIN_PAGE">
@@ -55,7 +57,8 @@
 
         </div>
 
-        <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:5px; padding-right:0px; margin-left:16px " ><i class="material-icons">more_vert</i></button>
+        <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:5px; padding-right:0px; margin-left:16px " >
+          <i class="material-icons">more_vert</i></button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
@@ -63,3 +66,4 @@
   
     </mat-toolbar-row>
   </mat-toolbar>
+</span>

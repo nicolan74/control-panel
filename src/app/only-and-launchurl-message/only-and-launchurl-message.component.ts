@@ -70,6 +70,19 @@ export class OnlyAndLaunchurlMessageComponent implements OnInit, DoCheck {
     console.log('NOTIFICATION COMP -> OPZIONE SELEZIONATA DALL UTENTE: ', this.userSelection);
   }
 
+  onSendToAllClick() {
+    this.selected_audience = 'Invia a tutti';
+    console.log('ON CLICK SEND TO ALL ', this.selected_audience);
+    this.notificationService.audienceSelected = this.selected_audience;
+    this.NO_SELECTED_AUDIENCE = false;
+  }
+  onSendToTesterClick() {
+    this.selected_audience = 'Invia ad utenti test';
+    console.log('ON CLICK SEND TO TESTER ', this.selected_audience);
+    this.notificationService.audienceSelected = this.selected_audience;
+    this.NO_SELECTED_AUDIENCE = false;
+  }
+
   /**
    * ONKEY CALCOLO LUNGHEZZA STRINGA E LA INVIO (DA ngDoCheck()) A NOTIFICATION SERVICE DA CUI E' GET DAL C TOOLBAR  */
   onKey(event: any) {

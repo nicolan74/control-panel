@@ -124,9 +124,10 @@ export class ToolbarComponent implements OnInit, DoCheck {
     }
 
     /**
+     * || (this.IS_LOGIN_PAGE === true)
      * *** *** BACK_BTN *** ***
      * SE LA PAGINA CORRENTE E' LA DASHBOARD O E' STATO CLICCATO IL BTN CONFERMA NON VISUALIZZO IL BTN BACK */
-    if ((this.IS_DASHBOARD_PAGE === true) || (this.confirmClicked === true) || (this.IS_LOGIN_PAGE === true)) {
+    if ((this.IS_DASHBOARD_PAGE === true) || (this.confirmClicked === true)) {
       this.IS_VISIBLE_BACK_BTN = false;
       console.log('IS_DASHBOARD_PAGE -> :' + this.IS_DASHBOARD_PAGE + ' | CONFIRM IS Clicked -> : ' + this.confirmClicked + ' | E VISILE BACK BTN -> : ' + this.IS_VISIBLE_BACK_BTN);
     } else {

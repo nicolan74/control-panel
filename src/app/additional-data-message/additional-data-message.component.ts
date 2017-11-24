@@ -44,12 +44,12 @@ export class AdditionalDataMessageComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    console.log(' -- ---- --- -- -- product detail component NG ON INIT ');
+    console.log(' -- ---- --- -- -- ADDITIONAL-DATA-MESSAGE-COMP -- NG ON INIT ');
     this.getProduct();
 
     /** 'GET' L'AUDIENCE SELEZIONATA DAL NOTIFICATION SERVICE CHE A SUA VOLTA 'GET' DAL DASHBOARD COMP  */
     this.selected_audience = this.notificationService.audienceSelected;
-    console.log('-- -- -- > AUDIENCE SELECTED GET IN PRODUCT DETAIL (ngOnInit)', this.selected_audience);
+    console.log('-- -- -- > AUDIENCE SELECTED GET IN ADDITIONAL-DATA-MESSAGE-COMP (ngOnInit)', this.selected_audience);
 
     if (this.selected_audience === undefined) {
       this.NO_SELECTED_AUDIENCE = true;
@@ -68,16 +68,28 @@ export class AdditionalDataMessageComponent implements OnInit, DoCheck {
     // }
   }
 
+  onSendToAllClick() {
+    this.selected_audience = 'Invia a tutti';
+    console.log('ON CLICK SEND TO ALL ', this.selected_audience);
+    this.notificationService.audienceSelected = this.selected_audience;
+    this.NO_SELECTED_AUDIENCE = false;
+  }
+  onSendToTesterClick() {
+    this.selected_audience = 'Invia ad utenti test';
+    console.log('ON CLICK SEND TO TESTER ', this.selected_audience);
+    this.notificationService.audienceSelected = this.selected_audience;
+    this.NO_SELECTED_AUDIENCE = false;
+  }
 
   ngDoCheck() {
     console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
     this.confirm_is_clicked = this.notificationService.confirmIsClicked;
 
     this.selected_audience = this.notificationService.audienceSelected;
-    console.log('-- -- -- > AUDIENCE SELECTED GET IN PRODUCT DETAIL (ngDoCheck)', this.selected_audience);
+    console.log('-- -- -- > AUDIENCE SELECTED GET IN ADDITIONAL-DATA-MESSAGE-COMP (ngDoCheck)', this.selected_audience);
 
     this.notificationService.setMessageLenght(this.message_lenght);
-    console.log('-- -- -- > MESSAGE LENGHT SET IN PRODUCT DETAIL (ngDoCheck)', this.message_lenght);
+    console.log('-- -- -- > MESSAGE LENGHT SET IN ADDITIONAL-DATA-MESSAGE-COMP (ngDoCheck)', this.message_lenght);
   }
 
   /** ONKEY CALCOLO LUNGHEZZA STRINGA E LA INVIO (DA ngDoCheck()) A NOTIFICATION SERVICE DA CUI E' 'GET' DAL C TOOLBAR  */

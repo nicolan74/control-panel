@@ -3,7 +3,7 @@
 
     <!-- VISUALIZZATO SE SELEZIONE UTENTE SOLO MESSAGGIO -->
     <span *ngIf="userSelection == 'message'">
-      <p>Messaggio</p>
+      <p class="msg-label">Messaggio</p>
       <!-- <form #form="ngForm">  -->
         <input [(ngModel)]="notification_message" (keyup)="onKey($event)" type="text" name="message" #message placeholder="testo del messaggio" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size: 18px !important; margin-bottom:25px"
         #input>
@@ -44,7 +44,18 @@
           <p style="font-size:0.9em"> INVIA AGLI UTENTI TEST</p>
         </span>
         <span *ngIf="NO_SELECTED_AUDIENCE" >
-            <p style="font-size:0.9em; color: red"><strong>NESSUN DESTINATARIO SELEZIONATO!</strong></p>
+            <p style="font-size:0.9em;">
+              <span style="color: red">
+                <strong>NESSUN DESTINATARIO SELEZIONATO!</strong>
+              </span>
+              <button mat-button [matMenuTriggerFor]="menu">
+                <i class="material-icons">mode_edit</i>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button (click)="onSendToAllClick()" mat-menu-item>Invia a tutti</button>
+                <button (click)="onSendToTesterClick()" mat-menu-item>Invia ad utenti test</button>
+              </mat-menu>
+            </p>
         </span>
   
       </div>

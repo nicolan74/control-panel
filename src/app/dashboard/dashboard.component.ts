@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit, DoCheck {
   mobHeight: any;
   mobWidth: any;
 
+  message_lenght = 0;
+
   notificationOptions = [
     'Messaggio + link a contenuto',
     'Solo messaggio',
@@ -73,7 +75,16 @@ export class DashboardComponent implements OnInit, DoCheck {
      * EVITA L'ISSUE: AD ESEMPIO SEGUO WF messaggio + link al contenuto CLICCO CONFERMA MA NN INVIO IL MESSAGGIO
      * TORNO IN DASHBOARD E SEGUO IL WF solo messaggio. NELLA PAGINA NOTIFICATION-MESSAGE (alias NOTIFICATION) IL BTN
      * BACK NON COMPARE PERCHE' IL VALORE DI IS CLICLED è ANCORA SETTATO A TRUE */
+    this.notificationService.getIsConfirmClicked(false);
     console.log('| | -> DASHBOARD CONFIRM IS CLICKED (ngDoCheck) ', this.notificationService.confirmIsClicked);
+
+    /**
+     *  SE SONO IN DASHBOARD SETTO A ZERO LA MESSAGE LENGHT: PUO' ACCADERE CHE
+     *  DOPO AVER QUASI TERMINATO IL WF messaggio + link al contenuto L'UTENTE TORNI INDIETRO E SELEZIONI
+     *  AD ESEMPIO IL wf solo messaggio. ESSENDOCI IN MEMORIA LA PRECEDENTE LUNGHEZZA DEL MSG VIENE SALTATO LO STEP
+     *  CHE PERMETTE DI SETTARE IL MESSAGGIO A CAUSA ANCHE DEL CONFIRM IS CLICKED ANCORA SETTATO A TRUE (RISOLTO COME SOPRA)
+     */
+    this.notificationService.setMessageLenght(this.message_lenght);
   }
   changeNotficationSelection(notificationTypeSelected) {
     console.log('IN DASHBOARD NOTIFICATION TYPE SELECTED ', this.notificationTypeSelected);
@@ -83,6 +94,7 @@ export class DashboardComponent implements OnInit, DoCheck {
     this.notificationService.getAudienceSelected(this.audienceSelected);
     console.log('-- -- > -- -- > IN DASHBOARD AUDIENCE SELECTED (changeAudienceSelection)', this.audienceSelected);
   }
+
 
   /**
    * USATO PER IL PULSANTE NEXT NELLA PAGINA DASHBOARD.COMPONENT.HTML

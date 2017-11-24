@@ -15,6 +15,13 @@ p {
     margin-bottom: 10px;
 }
 
+.msg-label {
+    
+        font-family: Roboto,"Helvetica Neue",sans-serif;
+        color: #929497;
+        margin-bottom: 10px;
+    }
+
 
 
 .selected-value {
