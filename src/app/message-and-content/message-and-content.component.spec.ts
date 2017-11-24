@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdditionalDataSelectionComponent } from './message-and-content.component';
+import { MessageAndContentComponent } from './additional-data-message.component';
 
-describe('ProductsComponent', () => {
-  let component: AdditionalDataSelectionComponent;
-  let fixture: ComponentFixture<AdditionalDataSelectionComponent>;
+describe('ProductDetailComponent', () => {
+  let component: MessageAndContentComponent;
+  let fixture: ComponentFixture<MessageAndContentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdditionalDataSelectionComponent ]
+      declarations: [ MessageAndContentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdditionalDataSelectionComponent);
+    fixture = TestBed.createComponent(MessageAndContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

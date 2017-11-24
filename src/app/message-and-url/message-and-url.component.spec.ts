@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageAndContentComponent } from './additional-data-message.component';
+import { MessageAndUrlComponent } from './only-and-launchurl-message.component';
 
-describe('ProductDetailComponent', () => {
-  let component: MessageAndContentComponent;
-  let fixture: ComponentFixture<MessageAndContentComponent>;
+describe('NotificationMessageComponent', () => {
+  let component: MessageAndUrlComponent;
+  let fixture: ComponentFixture<MessageAndUrlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageAndContentComponent ]
+      declarations: [ MessageAndUrlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageAndContentComponent);
+    fixture = TestBed.createComponent(MessageAndUrlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
