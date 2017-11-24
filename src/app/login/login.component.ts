@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (!this._service.login(this.user)) {
-      this.errorMsg = 'Failed to login';
+      console.log('+++ USER LOGGATO ', this.user);
+      this.errorMsg = 'Login fallito!';
+      console.log('LOGIN ERROR MAESSAGE ', this.errorMsg);
     }
   }
 

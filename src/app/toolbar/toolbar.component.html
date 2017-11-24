@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <span><a style="text-decoration: none; color:white" routerLink="/dashboard">Nuovo Messaggio</a></span>
+      <span *ngIf="!IS_LOGIN_PAGE">
+        <a style="text-decoration: none; color:white" routerLink="/dashboard">Nuovo Messaggio</a>
+      </span>
   
       <!-- <nav>
         <a routerLink="/dashboard" routerLinkActive="active-link">Dashoard</a>
@@ -13,12 +15,8 @@
         <mat-icon>person</mat-icon> 
        </button> -->
       <!-- <span *ngIf="!IS_DASHBOARD_PAGE"> -->
-          <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>Logout</button>
-          </mat-menu>
-          
-          <div>
+           
+      <div>
       <span *ngIf="IS_VISIBLE_BACK_BTN">
         <button mat-raised-button style="right: 15px;" (click)="goBack()">BACK</button>
       </span>
@@ -57,6 +55,10 @@
 
         </div>
 
+        <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:5px; padding-right:0px; margin-left:16px " ><i class="material-icons">more_vert</i></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
 
   
     </mat-toolbar-row>

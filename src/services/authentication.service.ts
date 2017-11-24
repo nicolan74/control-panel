@@ -8,7 +8,7 @@ export class User {
 }
 
 const users = [
-  new User('admin@admin.com', 'adm9'),
+  new User('a', 'a'),
   new User('user1@gmail.com', 'a23')
 ];
 
@@ -21,7 +21,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('user');
-    this.router.navigate(['Login']);
+    this.router.navigate(['/login']);
   }
 
   login(user) {

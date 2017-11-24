@@ -4,6 +4,7 @@ import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
   IS_DETAIL_PAGE = false;
   IS_DASHBOARD_PAGE = false;
   IS_NOTIFICATION_PAGE = false;
+  IS_LOGIN_PAGE = false;
   ID: number;
 
   PRODUCT_DETAIL_INPUT_LENGHT: any;
@@ -39,7 +41,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
     private notificationService: NotificationService,
     private router: Router,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -106,6 +109,13 @@ export class ToolbarComponent implements OnInit, DoCheck {
       console.log('IDENTIFICATA PAGINA PRODOTTI in ngDoCheck: ', this.IS_PRODUCT_PAGE);
     }
 
+    /** INDIVIDUO SE LA PAGINA CORRENTE E' LA LOGIN  */
+    if (this.router.url === '/login') {
+      this.IS_LOGIN_PAGE = true;
+    } else {
+      this.IS_LOGIN_PAGE = false;
+    }
+
     /** INDIVIDUO SE LA PAGINA CORRENTE E' LA DASHBOARD  */
     if (this.router.url === '/dashboard') {
       this.IS_DASHBOARD_PAGE = true;
@@ -116,7 +126,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
     /**
      * *** *** BACK_BTN *** ***
      * SE LA PAGINA CORRENTE E' LA DASHBOARD O E' STATO CLICCATO IL BTN CONFERMA NON VISUALIZZO IL BTN BACK */
-    if ((this.IS_DASHBOARD_PAGE === true) || (this.confirmClicked === true)) {
+    if ((this.IS_DASHBOARD_PAGE === true) || (this.confirmClicked === true) || (this.IS_LOGIN_PAGE === true)) {
       this.IS_VISIBLE_BACK_BTN = false;
       console.log('IS_DASHBOARD_PAGE -> :' + this.IS_DASHBOARD_PAGE + ' | CONFIRM IS Clicked -> : ' + this.confirmClicked + ' | E VISILE BACK BTN -> : ' + this.IS_VISIBLE_BACK_BTN);
     } else {
@@ -202,6 +212,10 @@ export class ToolbarComponent implements OnInit, DoCheck {
     this.notificationService.getIsConfirmClicked(false);
 
   }
+
+  logout() {
+    this.authenticationService.logout();
+}
 
 
 }

@@ -30,15 +30,13 @@
     </mat-list>
   </div>
 
-    <ul class="products">
+    <!-- <ul class="products">
       <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
-          <!-- <img class="badge" src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 70px !important; height: auto !important;" alt="..."> -->
-        <!-- APRE PRODUCT DETAIL E PASSA ID PRODOTTO -->
         <a routerLink="/detail/{{product.id}}" style="text-decoration: none !important;">
           <span class="badge">{{product.id}}</span> {{product.name}}
         </a>
       </li>
-    </ul>
+    </ul> -->
   </div>
 
   <div class="colproducts" style="padding: .4em 1.3em;" >
