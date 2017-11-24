@@ -9,6 +9,18 @@ p {
     font-family: Roboto,"Helvetica Neue",sans-serif;
     color: #929497;
     margin-bottom: 10px;
+    margin-top: 10px
+}
+.msg-input {
+    width:90%; 
+    padding-top:5px !important; 
+    padding-bottom:5px !important; 
+    padding-left:10px; 
+    /* margin-left:5px !important;  */
+    font-size:18px !important; 
+    margin-bottom:25px; 
+    border-radius:4px; 
+    border: 1px solid #ccc
 }
 
 .container {
@@ -37,6 +49,12 @@ p {
     color: #929497;
   }
 
+  .invalid_url {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 0.9em;
+    color: red;
+
+  }
 /* .half {
     background-color: #f1f1f2
 } */

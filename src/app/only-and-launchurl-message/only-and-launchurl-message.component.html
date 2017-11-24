@@ -3,10 +3,11 @@
 
     <!-- VISUALIZZATO SE SELEZIONE UTENTE SOLO MESSAGGIO -->
     <span *ngIf="userSelection == 'message'">
-      <p class="msg-label">Messaggio</p>
+      <p class="msg-label">
+        Messaggio
+      </p>
       <!-- <form #form="ngForm">  -->
-        <input [(ngModel)]="notification_message" (keyup)="onKey($event)" type="text" name="message" #message placeholder="testo del messaggio" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size: 18px !important; margin-bottom:25px"
-        #input>
+        <input class="msg-input" [(ngModel)]="notification_message" (keyup)="onKey($event)" type="text" name="message" #message placeholder="testo del messaggio" style="">
       <!-- </form> -->
       <!-- <div class="back_next_btns">
         <button mat-raised-button (click)="goBack()">Indietro</button>
@@ -16,19 +17,29 @@
     
     <!-- VISUALIZZATO SE SELEZIONE UTENTE MAESSAGGIO + URL -->
     <span *ngIf="userSelection == 'message+url'">
-      <p>Messaggio</p>
+      <p class="msg-label">
+        MESSAGGIO
+      </p>
       <!-- <form #form="ngForm"> -->
-          <input [(ngModel)]="notification_message" (keyup)="onKey($event)" type="text" name="message" #message placeholder="testo del messaggio" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size: 18px !important; margin-bottom:25px"
-          #input>
+          <input  class="msg-input" [(ngModel)]="notification_message" (keyup)="onKey($event)" type="text" name="message" #message placeholder="testo del messaggio" style="">
+         
       
-      <p>URL da lanciare</p>
-        <input [(ngModel)]="launch_url" type="text" (keyup)="onKeyURL($event)" name="url" #url placeholder="http://example.com" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size: 18px !important; margin-bottom:25px"
+      <p class="msg-label">
+        URL da lanciare
+      </p>
+        <input class="msg-input" [(ngModel)]="launch_url" type="text" (keyup)="onKeyURL($event)" name="url" #url placeholder="http://example.com" style="margin-bottom:10px !important"
         #input>
       <!-- </form> -->
       <!-- <div class="back_next_btns">
         <button mat-raised-button (click)="goBack()">Indietro</button>
         <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="sendNotificationMessageAndUrl(message, url)">Conferma URL </button>
       </div> -->
+      <span *ngIf="HAS_INVALID_URL === true">
+        <div class="invalid_url">
+          {{invalidUrlErrorMsg}}
+        </div>
+      </span>
+      
     </span>
 
 
@@ -46,7 +57,7 @@
         <span *ngIf="NO_SELECTED_AUDIENCE" >
             <p style="font-size:0.9em;">
               <span style="color: red">
-                <strong>NESSUN DESTINATARIO SELEZIONATO!</strong>
+                <strong>Nessun destinatario selezionato!</strong>
               </span>
               <button mat-button [matMenuTriggerFor]="menu">
                 <i class="material-icons">mode_edit</i>

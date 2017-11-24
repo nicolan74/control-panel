@@ -1,8 +1,8 @@
 <div *ngIf="!confirm_is_clicked" class="container">
   <div class="col" style="margin-right: 10px;">
     
-      <p class="msg-label">Messaggio</p>
-      <input (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="testo del messaggio" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important; font-size:18px !important; margin-bottom:25px">
+      <p class="msg-label">MESSAGGIO</p>
+      <input class="msg-input" (keyup)="onKey($event)" [(ngModel)]="notification_message" type="text" name="message" #message placeholder="testo del messaggio" style="">
     
   <!-- <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br> -->
   </div>
@@ -19,7 +19,7 @@
       <span *ngIf="NO_SELECTED_AUDIENCE" >
           <p style="font-size:0.9em;">
             <span style="color: red">
-              <strong>NESSUN DESTINATARIO SELEZIONATO!</strong>
+              <strong>Nessun destinatario selezionato!</strong>
             </span>
             <button mat-button [matMenuTriggerFor]="menu">
               <i class="material-icons">mode_edit</i>

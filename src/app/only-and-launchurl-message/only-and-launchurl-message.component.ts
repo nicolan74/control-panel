@@ -1,3 +1,4 @@
+// tslint:disable:max-line-length
 import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
@@ -23,6 +24,8 @@ export class OnlyAndLaunchurlMessageComponent implements OnInit, DoCheck {
   REQUEST_COMPLETE: boolean;
   segment: string;
   launch_url: string;
+  public invalidUrlErrorMsg = '';
+  HAS_INVALID_URL = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -93,8 +96,36 @@ export class OnlyAndLaunchurlMessageComponent implements OnInit, DoCheck {
   }
   onKeyURL(event: any) {
     this.launch_url = event.target.value;
-    console.log('-- -- >URL DA LANCIARE', this.notification_message);
+    console.log('-- -- > -- -- > URL DA LANCIARE', this.launch_url);
+    this.ValidURL(this.launch_url);
   }
+
+
+  ValidURL(str) {
+    // const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+    //   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+    //   '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    //   '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    //   '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    //   '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+
+    const pattern = new RegExp(/^(http|https):\/\/(([a-zA-Z0-9$\-_.+!*'(),;:&=]|%[0-9a-fA-F]{2})+@)?(((25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])){3})|localhost|([a-zA-Z0-9\-\u00C0-\u017F]+\.)+([a-zA-Z]{2,}))(:[0-9]+)?(\/(([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*(\/([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*)*)?(\?([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?(\#([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?)?$/); // fragment locator
+
+    if (!pattern.test(str)) {
+      // alert('Please enter a valid URL.');
+      console.log('Please enter a valid URL.');
+      this.invalidUrlErrorMsg = 'Si prega di ricontrollare l\'URL. Gli URL dei siti web devono iniziare con http:// o https://';
+      this.HAS_INVALID_URL = true;
+      console.log('HAS_INVALID_URL ', this.HAS_INVALID_URL);
+      return false;
+    } else {
+      this.HAS_INVALID_URL = false;
+      console.log('HAS_INVALID_URL ', this.HAS_INVALID_URL);
+      return true;
+    }
+  }
+
+
 
   sendNotificationOnlyMessage() {
     this.SEND_MSG_IS_CLICKED = true;
