@@ -17,6 +17,7 @@ export class NotificationService {
   inputMsgLengt: any;
 
   confirmIsClicked = false;
+  launchUrlIsValid: boolean;
 
   // REQUEST_COMPLETE = false;
 
@@ -189,6 +190,12 @@ export class NotificationService {
   getIsConfirmClicked(isClicked): void {
     this.confirmIsClicked = isClicked;
     console.log('Notification Service COMP -> CONFIRM IS CLICKED: ', `${isClicked}`);
+  }
+
+  isValidUrl(isValid): void {
+
+    this.launchUrlIsValid = isValid;
+    console.log('HAS_INVALID_URL (notification comp) ', this.launchUrlIsValid);
   }
 
 

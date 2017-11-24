@@ -4,7 +4,7 @@
     <!-- VISUALIZZATO SE SELEZIONE UTENTE SOLO MESSAGGIO -->
     <span *ngIf="userSelection == 'message'">
       <p class="msg-label">
-        Messaggio
+        MESSAGGIO
       </p>
       <!-- <form #form="ngForm">  -->
         <input class="msg-input" [(ngModel)]="notification_message" (keyup)="onKey($event)" type="text" name="message" #message placeholder="testo del messaggio" style="">
@@ -27,8 +27,9 @@
       <p class="msg-label">
         URL da lanciare
       </p>
-        <input class="msg-input" [(ngModel)]="launch_url" type="text" (keyup)="onKeyURL($event)" name="url" #url placeholder="http://example.com" style="margin-bottom:10px !important"
-        #input>
+        <input class="msg-input" [(ngModel)]="launch_url" type="text" (keyup)="onKeyURL($event)" 
+        name="url" #url placeholder="http://example.com" style="margin-bottom:10px !important"
+        value="" onfocus="this.launch_url = this.launch_url;" #input>
       <!-- </form> -->
       <!-- <div class="back_next_btns">
         <button mat-raised-button (click)="goBack()">Indietro</button>

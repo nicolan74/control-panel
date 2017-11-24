@@ -35,6 +35,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
   IS_VISIBLE_BACK_BTN = true;
   IS_VISIBLE_CONFIRM_BTN = false;
 
+  HAS_INVALID_URL = true;
+
   @ViewChild('input_msg') input_msg;
 
   constructor(
@@ -76,11 +78,16 @@ export class ToolbarComponent implements OnInit, DoCheck {
     this.confirmClicked = this.notificationService.confirmIsClicked;
     console.log('TOOLBAR COMP -> this.confirmClicked : ', this.confirmClicked);
 
+    this.HAS_INVALID_URL = this.notificationService.launchUrlIsValid;
+    console.log('TOOLBAR COMP -> HAS_INVALID_URL : ', this.HAS_INVALID_URL);
+
+
     /**
      *  IL PULSANTE CONFERMA E' DISABILITATO SE IL CAMPO INPUT DEL MESSAGGIO NON HA + DI DUE DIGIT
      *  O SE NON RISULTA SELEZIONATA L'AUDIENCE (SE AD ESEMPIO VIENE FATTO UN REFRESH SULLA PAGINA PRODUCT DETAIL
-     *  SI PERDE IL VALORE INIZIALMENTE ASSEGNATO AD AUDIENCE CHE DIVIENE undefined) */
-    if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined)) {
+     *  SI PERDE IL VALORE INIZIALMENTE ASSEGNATO AD AUDIENCE CHE DIVIENE undefined)
+     * && (this.HAS_INVALID_URL === false) */
+    if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined) ) {
       this.DISABLE_CONFIRM_BTN = false;
       console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
     } else {
@@ -148,8 +155,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
     }
 
     /**
-     * INDIVIDUO SE LA PAGINA CORRENTE E' LA NOTIFICATION NASCONDO IL PULSENTE NEXT (QUELLO INIZIALE) */
-      if (this.router.url.indexOf('/notification') !== -1) {
+     * INDIVIDUO SE LA PAGINA CORRENTE E' LA NOTIFICATION NASCONDO IL PULSANTE NEXT (QUELLO INIZIALE) */
+    if (this.router.url.indexOf('/notification') !== -1) {
       this.IS_NOTIFICATION_PAGE = true;
       console.log('IDENTIFICATA PAGINA NOTIFICATION in TOOLBAR C. (ngDoCheck): ', this.IS_NOTIFICATION_PAGE);
     } else if (this.router.url.indexOf('/notification') === -1) {
@@ -168,7 +175,13 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
     }
 
-
+    // if (this.notificationTypeSelected === 'Messaggio + link a contenuto') {
+    //   if (this.HAS_INVALID_URL === true) {
+    //     this.DISABLE_CONFIRM_BTN = true;
+    //   } else {
+    //     this.DISABLE_CONFIRM_BTN = false;
+    //   }
+    // }
 
   }
 
@@ -177,7 +190,6 @@ export class ToolbarComponent implements OnInit, DoCheck {
     // this.router.navigate(['send', {term: this.notificationTypeSelected,  }]);
     this.confirmClicked = true;
     this.notificationService.getIsConfirmClicked(true);
-
   }
 
   annulConfirmData(isClicked) {
@@ -188,7 +200,6 @@ export class ToolbarComponent implements OnInit, DoCheck {
   goToselectedOptionDetailProduct() {
     this.router.navigate(['/detail/' + this.selectedProductId]);
     console.log('STO CHIAMANDO goToselectedOption IN TOOLBAR COMP ');
-
   }
 
   goToselectedOption() {
@@ -216,7 +227,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
   logout() {
     this.authenticationService.logout();
-}
+  }
 
 
 }

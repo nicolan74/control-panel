@@ -25,7 +25,8 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
   segment: string;
   launch_url: string;
   public invalidUrlErrorMsg = '';
-  HAS_INVALID_URL = false;
+  HAS_INVALID_URL = true;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +66,9 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
 
     console.log('CONFIRM IS CLICKED IN NOTIFICATION MSG ', this.notificationService.confirmIsClicked);
     this.confirm_is_clicked = this.notificationService.confirmIsClicked;
+
+    /** notification service in ascolto sull validità dell'url */
+    this.notificationService.isValidUrl(this.HAS_INVALID_URL);
   }
 
   getUserSelection(): void {
@@ -116,11 +120,13 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
       console.log('Please enter a valid URL.');
       this.invalidUrlErrorMsg = 'Si prega di ricontrollare l\'URL. Gli URL dei siti web devono iniziare con http:// o https://';
       this.HAS_INVALID_URL = true;
-      console.log('HAS_INVALID_URL ', this.HAS_INVALID_URL);
+      console.log('HAS_INVALID_URL (message-and-url comp)', this.HAS_INVALID_URL);
+
       return false;
     } else {
       this.HAS_INVALID_URL = false;
-      console.log('HAS_INVALID_URL ', this.HAS_INVALID_URL);
+      console.log('HAS_INVALID_URL (message-and-url comp) ', this.HAS_INVALID_URL);
+
       return true;
     }
   }

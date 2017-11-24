@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageAndUrlComponent } from './only-and-launchurl-message.component';
+import { MessageAndUrlComponent } from './message-and-url.component';
 
 describe('NotificationMessageComponent', () => {
   let component: MessageAndUrlComponent;
