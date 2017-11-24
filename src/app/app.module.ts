@@ -13,7 +13,7 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AdditionalDataMessageComponent } from './additional-data-message/additional-data-message.component';
+import { MessageAndContentComponent } from './additional-data-message/additional-data-message.component';
 import { OnlyAndLaunchurlMessageComponent } from './only-and-launchurl-message/only-and-launchurl-message.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
@@ -27,7 +27,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     AppComponent,
     AdditionalDataSelectionComponent,
     DashboardComponent,
-    AdditionalDataMessageComponent,
+    MessageAndContentComponent,
     OnlyAndLaunchurlMessageComponent,
     ToolbarComponent,
     DialogWindowComponent,

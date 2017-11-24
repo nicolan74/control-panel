@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdditionalDataSelectionComponent } from './additional-data-selection.component';
+import { AdditionalDataSelectionComponent } from './message-and-content.component';
 
 describe('ProductsComponent', () => {
   let component: AdditionalDataSelectionComponent;

@@ -9,9 +9,9 @@ import { Subject } from 'rxjs/Subject';
 
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './additional-data-selection.component.html',
-  styleUrls: ['./additional-data-selection.component.css'],
+  selector: 'app-message-and-content',
+  templateUrl: './message-and-content.component.html',
+  styleUrls: ['./message-and-content.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class AdditionalDataSelectionComponent implements OnInit, DoCheck {

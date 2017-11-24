@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./additional-data-message.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AdditionalDataMessageComponent implements OnInit, DoCheck {
+export class MessageAndContentComponent implements OnInit, DoCheck {
   product: Product;
   product_id: number;
   selected_audience: any;

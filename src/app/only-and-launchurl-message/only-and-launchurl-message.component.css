@@ -16,7 +16,7 @@ p {
     padding-top:5px !important; 
     padding-bottom:5px !important; 
     padding-left:10px; 
-    /* margin-left:5px !important;  */
+    margin-left:0px !important; 
     font-size:18px !important; 
     margin-bottom:25px; 
     border-radius:4px; 
