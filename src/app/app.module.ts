@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { SearchProductService } from './../services/search-product.service';
-import { AdditionalDataSelectionComponent } from './additional-data-selection/additional-data-selection.component';
+import { MessageAndContentDataSelectionComponent } from './message-and-content-data-selection/message-and-content-data-selection.component';
 import { NotificationService } from './../services/notification.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +25,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AdditionalDataSelectionComponent,
+    MessageAndContentDataSelectionComponent,
     DashboardComponent,
     MessageAndContentComponent,
     MessageAndUrlComponent,

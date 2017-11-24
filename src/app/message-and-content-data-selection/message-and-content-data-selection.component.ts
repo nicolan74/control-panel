@@ -9,12 +9,12 @@ import { Subject } from 'rxjs/Subject';
 
 
 @Component({
-  selector: 'app-additional-data-selection',
-  templateUrl: './additional-data-selection.component.html',
-  styleUrls: ['./additional-data-selection.component.css'],
+  selector: 'app-message-and-content-data-selection',
+  templateUrl: './message-and-content-data-selection.component.html',
+  styleUrls: ['./message-and-content-data-selection.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AdditionalDataSelectionComponent implements OnInit, DoCheck {
+export class MessageAndContentDataSelectionComponent implements OnInit, DoCheck {
   products: Product[];
   originalProducts: Product[];
   selectedProduct: Product;
