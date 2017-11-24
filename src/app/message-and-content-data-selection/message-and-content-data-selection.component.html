@@ -1,70 +1,70 @@
-<!-- <input name="title" #searchParam> -->
-
-
 <div class="container">
-    <div style="margin-right: 10px;" class="colproducts">
-    <!-- <input (keyup)="search($event)" placeholder="Cerca"> -->
+  <div style="margin-right: 10px;" class="colproducts">
+
     <div class="search_input">
-    <!-- <mat-icon><b>search</b></mat-icon>  -->
-    <mat-form-field [color]="accent">
-        <!-- <mat-icon>favorite</mat-icon> -->
+      <mat-form-field [color]="accent">
         <mat-placeholder>
-          <!-- <mat-icon><b>search</b></mat-icon>  -->
           <b> Cerca </b>
         </mat-placeholder>
-      <input (keyup)="search($event)" matInput >
-      <span matPrefix><mat-icon><b>search</b></mat-icon>&nbsp;&nbsp;</span>
-    </mat-form-field>
-  </div>
+        <input (keyup)="search($event)" matInput>
+        <span matPrefix>
+          <mat-icon>
+            <b>search</b>
+          </mat-icon>
+          &nbsp;&nbsp;
+        </span>
+      </mat-form-field>
+    </div>
 
-  <div class="product_list">
-  <mat-list >
-      <mat-list-item class="products-mat" *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
-        <img matListAvatar src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 70px !important; height: auto !important;" alt="...">
-        <h3 matLine> {{product.name}} </h3>
-        <p matLine style="padding-top:10px">
-          <span> <strong>id: {{product.id}}</strong> </span>
-          <span class="demo-2"> </span>
-        </p>
-      </mat-list-item>
-    </mat-list>
-  </div>
+    <div class="product_list">
+      <mat-list>
+        <mat-list-item class="products-mat" *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
+          <img matListAvatar src="https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" style="width: 70px !important; height: auto !important;" alt="...">
+          <h3 matLine> {{product.name}} </h3>
+          <p matLine style="padding-top:10px">
+            <span> 
+              <strong>id: {{product.id}}</strong> 
+            </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+    </div>
 
     <!-- <ul class="products">
-      <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
-        <a routerLink="/detail/{{product.id}}" style="text-decoration: none !important;">
-          <span class="badge">{{product.id}}</span> {{product.name}}
-        </a>
-      </li>
+    <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
+    <a routerLink="/detail/{{product.id}}" style="text-decoration: none !important;">
+    <span class="badge">{{product.id}}</span> {{product.name}}
+    </a>
+    </li>
     </ul> -->
   </div>
 
   <div class="colproducts" style="padding: .4em 1.3em;" >
-      <div *ngIf="!selectedProduct">
-        <div class="no_selected_product">
-          <h2 style="text-align: center; margin-top:25%; ">Anteprima</h2>
-        </div>
-        
+    <div *ngIf="!selectedProduct">
+      <div class="no_selected_product">
+        <h2 style="text-align: center; margin-top:25%; ">Anteprima</h2>
       </div>
-      <div *ngIf="selectedProduct">
-        <div class="selected_product">
+    </div>
+
+    <div *ngIf="selectedProduct">
+      <div class="selected_product">
         <div style="min-width: 150px !important;">  
           <img src="https://test.eurofoodservice.it/api/images/products/{{selectedProduct.id}}/{{selectedProduct.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C" 
           style="width: 150px !important; height: auto !important; margin:auto; display:block" />
         </div>
-        <!-- <div>
+          <!-- <div>
           <span>id: </span> {{selectedProduct.id}}
-        </div> -->
+          </div> -->
         <div class="card_content" style="padding-right:60px; padding-left:60px; padding-bottom:25px; text-align:center ">
           <p style="font-size:1.5em; color:#929497;"> {{selectedProduct.name | uppercase}}</p>
           <p style="color:#929497;" [innerHTML]="selectedProduct.description" style="margin-top:5px !important; margin-bottom:5px !important"></p>
         </div>
-        <!-- <div>
-           <input type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important">
-        </div>
-        <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br>
-        <button mat-raised-button routerLink="/detail/{{selectedProduct.id}}" color="accent" (click)="selectedOption(notificationTypeSelected)">Next</button> -->
-      </div>
+          <!-- <div>
+          <input type="text" name="message" #message placeholder="Messaggio notifica" style="width:80%; padding-top:5px !important; padding-bottom:5px !important; padding-left:5px; margin-left:0px !important">
+          </div>
+          <button class="btn" (click)="sendNotification(message)" type="submit">Invia Notifica</button> <br>
+          <button mat-raised-button routerLink="/detail/{{selectedProduct.id}}" color="accent" (click)="selectedOption(notificationTypeSelected)">Next</button> -->
       </div>
     </div>
   </div>
+</div>

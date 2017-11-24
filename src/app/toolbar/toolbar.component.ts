@@ -98,13 +98,13 @@ export class ToolbarComponent implements OnInit, DoCheck {
     }
 
     /**
-     * INDIVIDUO SE LA PAGINA CORRENTE E' LA PRODUCT
+     * INDIVIDUO SE LA PAGINA CORRENTE E' LA MessageAndContentDataSelection
      * LO USO NEL TOOLBAR TEMPLATE PER NASCONDERE IL BTN NEXT INIZIALE E PER VISUALIZZARE
      * UNO CUSTOM CHE PORTA A PRODUCT DETAIL (usato nel wf nessaggio + link al contenuto) */
-    if (this.router.url === '/products') {
+    if (this.router.url === '/contentselection') {
       this.IS_PRODUCT_PAGE = true;
       console.log('IDENTIFICATA PAGINA PRODOTTI in ngDoCheck: ', this.IS_PRODUCT_PAGE);
-    } else if (this.router.url !== '/products') {
+    } else if (this.router.url !== '/contentselection') {
       this.IS_PRODUCT_PAGE = false;
       console.log('IDENTIFICATA PAGINA PRODOTTI in ngDoCheck: ', this.IS_PRODUCT_PAGE);
     }
@@ -193,7 +193,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
   goToselectedOption() {
     if (this.notificationTypeSelected === 'Messaggio + link a contenuto') {
-      this.router.navigate(['/products']);
+      this.router.navigate(['/contentselection']);
 
       if (this.IS_PRODUCT_PAGE) {
         this.router.navigate(['/detail/' + this.selectedProductId]);
