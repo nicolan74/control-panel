@@ -13,4 +13,9 @@
   /* SPOSTA SOTTO IL MENU */
   .mat-menu-panel {
     margin-top: 50px !important;
+    width: 250px !important;
+  }
+
+  .mat-raised-button.mat-accent{
+    color: #ffffff !important;
   }

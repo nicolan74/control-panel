@@ -37,6 +37,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
   HAS_INVALID_URL = true;
 
+  LOGGED_USER_EMAIL: any;
+
   @ViewChild('input_msg') input_msg;
 
   constructor(
@@ -58,6 +60,12 @@ export class ToolbarComponent implements OnInit, DoCheck {
 
 
   ngDoCheck() {
+    this.LOGGED_USER_EMAIL = localStorage.getItem('user');
+    console.log('===============================================================');
+    console.log('EMAIL UTENTE LOGGATO ', this.LOGGED_USER_EMAIL);
+    console.log('===============================================================');
+
+
     this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
     console.log('TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
 
@@ -87,7 +95,7 @@ export class ToolbarComponent implements OnInit, DoCheck {
      *  O SE NON RISULTA SELEZIONATA L'AUDIENCE (SE AD ESEMPIO VIENE FATTO UN REFRESH SULLA PAGINA PRODUCT DETAIL
      *  SI PERDE IL VALORE INIZIALMENTE ASSEGNATO AD AUDIENCE CHE DIVIENE undefined)
      * && (this.HAS_INVALID_URL === false) */
-    if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined) ) {
+    if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined)) {
       this.DISABLE_CONFIRM_BTN = false;
       console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
     } else {

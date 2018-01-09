@@ -31,8 +31,9 @@
                 * NOTIFICATION MESSAGE (CASI: Solo messaggio E Messaggio + link a pagina web)
                 *************************************************************************************************-->
           <span *ngIf="IS_DASHBOARD_PAGE"> 
-            <button mat-raised-button style="background-color: #FF950D" (click)="goToselectedOption()">NEXT</button>
+            <button mat-raised-button color="accent" (click)="goToselectedOption()">NEXT</button>
           </span>
+          
         <!-- </span> -->
 
           <!-- *****************************************************************************************************
@@ -58,8 +59,11 @@
         </div>
 
         <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:5px; padding-right:0px; margin-left:16px " >
-          <i class="material-icons">more_vert</i></button>
+          <!-- <i class="material-icons">more_vert</i> -->
+          <i class="material-icons">person</i>
+        </button>
         <mat-menu #menu="matMenu">
+          <p style="padding-left:16px; color:darkgrey; font-size:0.9em"> {{ LOGGED_USER_EMAIL }} </p>
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
 
