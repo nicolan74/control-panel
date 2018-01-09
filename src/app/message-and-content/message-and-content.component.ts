@@ -8,6 +8,7 @@ import { NotificationService } from '../../services/notification.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-message-and-content',
@@ -38,6 +39,7 @@ export class MessageAndContentComponent implements OnInit, DoCheck {
     private notificationService: NotificationService,
     public dialog: MatDialog,
     private router: Router,
+    private authenticationService: AuthenticationService
   ) {
     // console.log('CONFIRM IS CLICKED P-D ', this.notificationService.confirmIsClicked);
 
@@ -60,6 +62,7 @@ export class MessageAndContentComponent implements OnInit, DoCheck {
       console.log(' ! this.NO_SELECTED_AUDIENCE ', this.NO_SELECTED_AUDIENCE);
     }
 
+    this.authenticationService.checkCredentials();
     /** DISABILITO IL BTN INVIA MESSAGGIO AL VERIFICARSI DI UNA DI QUESTE CONDIZIONI */
     // if ((this.NO_SELECTED_AUDIENCE === true) || (this.INPUT_IS_EMPTY === true) || (this.product_id)) {
     //   this.IS_DISABLE_SEND_MSG_BTN = true;

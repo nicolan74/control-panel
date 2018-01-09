@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'contentselection', component: MessageAndContentDataSelectionComponent },
   { path: 'detail/:id', component: MessageAndContentComponent },
+  { path: 'detail', component: MessageAndContentDataSelectionComponent },
   { path: 'notification', component: MessageAndUrlComponent },
   { path: 'login', component: LoginComponent }
 ];

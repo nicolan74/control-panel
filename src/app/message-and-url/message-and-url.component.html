@@ -1,6 +1,13 @@
 <div  *ngIf="!confirm_is_clicked" class="container">
   <div class="col" style="margin-right: 10px;">
 
+    <!-- VISUALIZZATO SE SELEZIONE USER SELECTION E' UNDEFINED -->
+    <span *ngIf="userSelection == undefined">
+      <p class="msg-label">
+        Si è verificato un errore, torna alla  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </p>
+     </span>
+
     <!-- VISUALIZZATO SE SELEZIONE UTENTE SOLO MESSAGGIO -->
     <span *ngIf="userSelection == 'message'">
       <p class="msg-label">

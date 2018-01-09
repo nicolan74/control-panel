@@ -28,9 +28,12 @@ export class NotificationService {
     private http: Http,
   ) { }
 
+
   /**
-   * MESSAGE AND LINK TO PRODUCT
+   * MESSAGE AND LINK TO PRODUCT - i parametri sono passati dal comp MessageAndContentComponent)
+   * al click su sendNotification()
    * @param message
+   * @param segment
    * @param selectedProduct
    */
   oneSignalNotificationLinkedToProduct(message, segment, selectedProduct): void {
@@ -71,9 +74,12 @@ export class NotificationService {
       );
   }
 
+
   /**
-   * ONLY MESSAGE
+   * ONLY MESSAGE i parametri sono passati dal comp MessageAndUrlComponent
+   * al click su sendNotificationOnlyMessage
    * @param message
+   * @param segment
    */
   sendNotificationOnlyMessage(message, segment): void {
 
@@ -175,7 +181,7 @@ export class NotificationService {
     console.log('Notification Service COMP -> AUDIENCE SELEZIONATA: ', `${audienceSelected}`);
   }
 
-  /** VIENE SETTATO DAL COMPONENTE PRODUCTS SULL'ONSELECT DI UN PRODOTTO */
+  /** VIENE SETTATO DAL COMPONENTE MessageAndContentDataSelectionComponent SULL'ON-SELECT DI UN PRODOTTO */
   getSelectedProduct(productId): void {
     this.selectedProductId = productId;
     console.log('Notification Service COMP -> ID PRODOTTO SELEZIONATO: ', `${productId}`);

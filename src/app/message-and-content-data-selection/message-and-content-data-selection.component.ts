@@ -6,6 +6,7 @@ import { NotificationService } from '../../services/notification.service';
 
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+import { AuthenticationService } from '../../services/authentication.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class MessageAndContentDataSelectionComponent implements OnInit, DoCheck 
     private searchProductService: SearchProductService,
     private notificationService: NotificationService,
     private http: Http,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -39,6 +41,8 @@ export class MessageAndContentDataSelectionComponent implements OnInit, DoCheck 
       this.originalProducts = products;
       console.log('THIS ORIGINAL PRODUCTS ', this.originalProducts);
     });
+
+    this.authenticationService.checkCredentials();
   }
 
   ngDoCheck() {

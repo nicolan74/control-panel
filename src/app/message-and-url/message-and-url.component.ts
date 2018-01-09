@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-message-and-url',
@@ -34,6 +35,7 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
     private location: Location,
     public dialog: MatDialog,
     private router: Router,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,8 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
       this.NO_SELECTED_AUDIENCE = false;
       console.log(' ! this.NO_SELECTED_AUDIENCE ', this.NO_SELECTED_AUDIENCE);
     }
+
+    this.authenticationService.checkCredentials();
   }
 
   ngDoCheck() {
@@ -133,6 +137,10 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
 
 
 
+  /**
+   * INVIA NOTIFICA DEL TIPO SOLO MESSAGGIO
+   * (RICHIAMA this.notificationService.sendNotificationOnlyMessage PASSANDO I PARAMETRI)
+   */
   sendNotificationOnlyMessage() {
     this.SEND_MSG_IS_CLICKED = true;
     this.REQUEST_COMPLETE = false;

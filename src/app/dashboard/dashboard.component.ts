@@ -51,6 +51,26 @@ export class DashboardComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+
+    /**
+     * WORKFLOW: all'entrata nella dashboard e al cambio di selezione (vedi sotto changeNotficationSelection)
+     * il tipo di notifica selezionata viene passato al comp NOTIFICATION SERVICE
+     * dal notification service viene passato al comp TOOLBAR che in base alla notifica selezionata reindirizza alle pagine:
+     *
+     *  *** se la selezione è 'Messaggio + link a contenuto' ***
+     *      path = /contentselection se la pagina in cui si trova l'utente è la DASHBOARD
+     *      path = /detail/ se la pagina in cui si trova l'utente è la quella di selezione del prodotto
+     *
+     *  *** se la selezione è 'Messaggio + link a pagina web' ***
+     *      path = /notification' (comp MessageAndUrlComponent) passando nell URL il parametro new: 'message+url'
+     *      il componente MessageAndUrlComponent get il valore assegnato al parametro 'new' con this.route.snapshot.params['new']
+     *      visualizzando nel template la sezione <span *ngIf="userSelection == 'message+url'">
+     *
+     *  *** se la selezione è 'Solo messaggio' ***
+     *      path = /notification' (comp MessageAndUrlComponent) passando nell URL il parametro new: 'message'
+     *      il componente MessageAndUrlComponent get il valore assegnato al parametro 'new' con this.route.snapshot.params['new']
+     *      visualizzando nel template la sezione <span *ngIf="userSelection == 'message'">
+     */
     this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
     this.notificationService.getAudienceSelected(this.audienceSelected);
 
@@ -90,6 +110,7 @@ export class DashboardComponent implements OnInit, DoCheck {
     console.log('IN DASHBOARD NOTIFICATION TYPE SELECTED ', this.notificationTypeSelected);
     this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
   }
+
   changeAudienceSelection(audienceSelected) {
     this.notificationService.getAudienceSelected(this.audienceSelected);
     console.log('-- -- > -- -- > IN DASHBOARD AUDIENCE SELECTED (changeAudienceSelection)', this.audienceSelected);
