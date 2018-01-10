@@ -1,5 +1,5 @@
 // tslint:disable:max-line-length
-import { Component, OnInit, ViewEncapsulation, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, DoCheck, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import { Location } from '@angular/common';
@@ -7,6 +7,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-message-and-url',
@@ -24,9 +26,17 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
   SEND_MSG_IS_CLICKED = false;
   REQUEST_COMPLETE: boolean;
   segment: string;
-  launch_url: string;
+  // launch_url: string;
   public invalidUrlErrorMsg = '';
   HAS_INVALID_URL = true;
+
+  HAS_PASTED_LAUNCHURL: any;
+
+  launch_url: '';
+  form: FormGroup;
+
+
+  content: any;
 
 
   constructor(
@@ -35,8 +45,13 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
     private location: Location,
     public dialog: MatDialog,
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService,
+    public formBuilder: FormBuilder,
+  ) {
+    this.form = this.formBuilder.group({
+      url: ['', Validators.compose([Validators.pattern(/^(http|https):\/\/(([a-zA-Z0-9$\-_.+!*'(),;:&=]|%[0-9a-fA-F]{2})+@)?(((25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])){3})|localhost|([a-zA-Z0-9\-\u00C0-\u017F]+\.)+([a-zA-Z]{2,}))(:[0-9]+)?(\/(([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*(\/([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*)*)?(\?([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?(\#([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?)?$/), Validators.required])],
+    });
+  }
 
   ngOnInit() {
     this.getUserSelection();
@@ -56,7 +71,29 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
     this.authenticationService.checkCredentials();
   }
 
+
+  /**
+   * CASO: opzione selezionata 'Messaggio + link a pagina web' + l'utente esegue copia ed INCOLLA nel
+   * campo input 'URL da lanciare' dell'url da lanciare piuttosto che digitarlo
+   * il setTimeout risolve la necessità di dover cliccare in un punto vuoto affinchè il template si aggiorni
+   * ed abiliti il button CONFERMA nel caso in cui l'URL sia valido
+   * @param e
+   */
+  onPaste(e: any) {
+    this.content = e.clipboardData.getData('text/plain');
+    console.log('************** TESTO INCOLLATO ', this.content);
+
+    setTimeout(() => {
+      this.content = '';
+    }, 0);
+  }
   ngDoCheck() {
+
+    console.log('============= 0> FORM VALIDO  (message-and-url.com) ', this.form.valid);
+    console.log('============= 0> URL INSERITO (message-and-url.com) ', this.form.value.url);
+    this.notificationService.hasValidUrl(this.form.valid);
+
+
     /**
      * * VALUTO LA LUNGHEZZA DELLA STRINGA NEL CAMPO INPUT DEL MESSAGGIO E SE L'AUDIENCE E DEFINITA (VEDI ngOnInit) PER
      *   ABILITARE/DISABILITARE IL BTN CONFERMA
@@ -72,13 +109,15 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
     this.confirm_is_clicked = this.notificationService.confirmIsClicked;
 
     /** notification service in ascolto sull validità dell'url */
-    this.notificationService.isValidUrl(this.HAS_INVALID_URL);
+    /* COMMENTO 09.01 */
+    // this.notificationService.isValidUrl(this.HAS_INVALID_URL);
+
   }
 
   getUserSelection(): void {
     this.userSelection = this.route.snapshot.params['new'];
     // const userSelection = this.route.snapshot.queryParams['new'];
-    console.log('NOTIFICATION COMP -> OPZIONE SELEZIONATA DALL UTENTE: ', this.userSelection);
+    console.log('MSG AND URL COMP -> OPZIONE SELEZIONATA DALL UTENTE: ', this.userSelection);
   }
 
   onSendToAllClick() {
@@ -102,40 +141,28 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
     this.message_lenght = this.notification_message.length;
     console.log('- -- -- ON KEY LUNGHEZZA STRINGA ', this.message_lenght);
   }
-  onKeyURL(event: any) {
-    this.launch_url = event.target.value;
-    console.log('-- -- > -- -- > URL DA LANCIARE', this.launch_url);
-    this.ValidURL(this.launch_url);
-  }
+  /* COMMENTO 09/01*/
+  // onKeyURL(event: any) {
+  //   this.launch_url = event.target.value;
+  //   console.log('-- -- > -- -- > URL DA LANCIARE', this.launch_url);
+  //   this.ValidURL(this.launch_url);
+  // }
 
 
-  ValidURL(str) {
-    // const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-    //   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-    //   '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    //   '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    //   '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    //   '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-
-    const pattern = new RegExp(/^(http|https):\/\/(([a-zA-Z0-9$\-_.+!*'(),;:&=]|%[0-9a-fA-F]{2})+@)?(((25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])){3})|localhost|([a-zA-Z0-9\-\u00C0-\u017F]+\.)+([a-zA-Z]{2,}))(:[0-9]+)?(\/(([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*(\/([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*)*)?(\?([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?(\#([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?)?$/); // fragment locator
-
-    if (!pattern.test(str)) {
-      // alert('Please enter a valid URL.');
-      console.log('Please enter a valid URL.');
-      this.invalidUrlErrorMsg = 'Si prega di ricontrollare l\'URL. Gli URL dei siti web devono iniziare con http:// o https://';
-      this.HAS_INVALID_URL = true;
-      console.log('HAS_INVALID_URL (message-and-url comp)', this.HAS_INVALID_URL);
-
-      return false;
-    } else {
-      this.HAS_INVALID_URL = false;
-      console.log('HAS_INVALID_URL (message-and-url comp) ', this.HAS_INVALID_URL);
-
-      return true;
-    }
-  }
-
-
+  // ValidURL(str) {
+  //   const pattern = new RegExp(/^(http|https):\/\/(([a-zA-Z0-9$\-_.+!*'(),;:&=]|%[0-9a-fA-F]{2})+@)?(((25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])(\.(25[0-5]|2[0-4][0-9]|[0-1][0-9][0-9]|[1-9][0-9]|[0-9])){3})|localhost|([a-zA-Z0-9\-\u00C0-\u017F]+\.)+([a-zA-Z]{2,}))(:[0-9]+)?(\/(([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*(\/([a-zA-Z0-9$\-_.+!*'(),;:@&=]|%[0-9a-fA-F]{2})*)*)?(\?([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?(\#([a-zA-Z0-9$\-_.+!*'(),;:@&=\/?]|%[0-9a-fA-F]{2})*)?)?$/); // fragment locator
+  //   if (!pattern.test(str)) {
+  //     console.log('Please enter a valid URL.');
+  //     this.invalidUrlErrorMsg = 'Si prega di ricontrollare l\'URL. Gli URL dei siti web devono iniziare con http:// o https://';
+  //     this.HAS_INVALID_URL = true;
+  //     console.log('HAS_INVALID_URL (message-and-url comp)', this.HAS_INVALID_URL);
+  //     return false;
+  //   } else {
+  //     this.HAS_INVALID_URL = false;
+  //     console.log('HAS_INVALID_URL (message-and-url comp) ', this.HAS_INVALID_URL);
+  //     return true;
+  //   }
+  // }
 
   /**
    * INVIA NOTIFICA DEL TIPO SOLO MESSAGGIO
@@ -167,19 +194,23 @@ export class MessageAndUrlComponent implements OnInit, DoCheck {
       });
   }
 
+  /**
+   * INVIA NOTIFICA DEL TIPO MESSAGGIO + LINK A PAGINA WEB
+   */
   sendNotificationMessageAndUrl() {
     this.SEND_MSG_IS_CLICKED = true;
     this.REQUEST_COMPLETE = false;
     console.log('1) REQUEST VALUE (GET IN NOTIFICATION MSG)', this.REQUEST_COMPLETE);
 
     console.log(` +++ MSG entered by user: ${this.notification_message}`);
-    console.log(` +++ Url entered by user: ${this.launch_url}`);
+    // console.log(` +++ Url entered by user: ${this.launch_url}`); this.form.value.url
+    console.log(` +++ Url entered by user: ${this.form.value.url}`);
     if (this.selected_audience === 'Invia ad utenti test') {
       this.segment = 'Test Users';
     } else {
       this.segment = 'All';
     }
-    this.notificationService.sendNotificationMessageAndUrl(`${this.notification_message}`, `${this.segment}`, `${this.launch_url}`);
+    this.notificationService.sendNotificationMessageAndUrl(`${this.notification_message}`, `${this.segment}`, `${this.form.value.url}`);
 
     this.notificationService.REQUEST_COMPLETE.subscribe(
       value => {

@@ -1,5 +1,5 @@
 // tslint:disable:max-line-length
-import { Component, OnInit, ViewEncapsulation, DoCheck, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, DoCheck, ViewChild, AfterViewInit } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -13,7 +13,7 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./toolbar.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ToolbarComponent implements OnInit, DoCheck {
+export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
   notificationTypeSelected: string;
   selectedProductId: number;
   audienceSelected: string;
@@ -35,8 +35,8 @@ export class ToolbarComponent implements OnInit, DoCheck {
   IS_VISIBLE_BACK_BTN = true;
   IS_VISIBLE_CONFIRM_BTN = false;
 
-  HAS_INVALID_URL = true;
-
+  // HAS_INVALID_URL = true;
+  HAS_VALID_URL = false;
   LOGGED_USER_EMAIL: any;
 
   @ViewChild('input_msg') input_msg;
@@ -55,19 +55,45 @@ export class ToolbarComponent implements OnInit, DoCheck {
     //   console.log('IDENTIFICATA PAGINA PRODOTTI');
     //   this.IS_PRODUCT_PAGE = true;
     // }
+    // this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
+  }
+  ngAfterViewInit() {
+    // console.log('======== SNAP SHOT PARAMS', this.route.snapshot.params['new']);
 
   }
 
-
   ngDoCheck() {
+    /**
+     *  I determine if the current route-request is part of a page refresh.
+     *  this.router.navigated) è false se viene fatto il refresh della pagina
+     *  Risolve (reindirizzando alla dashboard): se la pagina viene aggiornata this.notificationTypeSelected = undefined
+     *  questo non permette di determinare il tipo di notifica selezionata dall'utente e il 'salto' delle condizioni che 
+     *  abilitano il pulsante (vedi sotto (A) e (B))
+     */
+    console.log('======== ====== ====== >>> ROUTER NAVIGATED', this.router.navigated);
+    if (!this.router.navigated) {
+      this.router.navigate(['/dashboard']);
+    }
+
     this.LOGGED_USER_EMAIL = localStorage.getItem('user');
-    console.log('===============================================================');
-    console.log('EMAIL UTENTE LOGGATO ', this.LOGGED_USER_EMAIL);
-    console.log('===============================================================');
+    // console.log('===============================================================');
+    // console.log('EMAIL UTENTE LOGGATO ', this.LOGGED_USER_EMAIL);
+    // console.log('===============================================================');
+
+    this.notificationService.VALID_URL.subscribe(
+      value => {
+        console.log('============= 0> VALID URL SUBSCRIPTION (toolbar.com) ', value);
+        this.HAS_VALID_URL = value;
+      }
+    );
 
 
     this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
-    console.log('TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
+    console.log('======= ===== ==> TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
+    // if (this.notificationTypeSelected === undefined) {
+    //   this.notificationTypeSelected = this.route.snapshot.params['new'];
+    //   console.log('======= ===== ==> TOOLBAR COMP -> SE UNDEFINED TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
+    // }
 
     this.selectedProductId = this.notificationService.selectedProductId;
     console.log('TOOLBAR COMP -> ID PRODOTTO SELEZIONATO: ', this.selectedProductId);
@@ -86,22 +112,45 @@ export class ToolbarComponent implements OnInit, DoCheck {
     this.confirmClicked = this.notificationService.confirmIsClicked;
     console.log('TOOLBAR COMP -> this.confirmClicked : ', this.confirmClicked);
 
-    this.HAS_INVALID_URL = this.notificationService.launchUrlIsValid;
-    console.log('TOOLBAR COMP -> HAS_INVALID_URL : ', this.HAS_INVALID_URL);
+    // this.HAS_INVALID_URL = this.notificationService.launchUrlIsValid;
+    // console.log('TOOLBAR COMP -> HAS_INVALID_URL : ', this.HAS_INVALID_URL);
 
 
-    /**
-     *  IL PULSANTE CONFERMA E' DISABILITATO SE IL CAMPO INPUT DEL MESSAGGIO NON HA + DI DUE DIGIT
-     *  O SE NON RISULTA SELEZIONATA L'AUDIENCE (SE AD ESEMPIO VIENE FATTO UN REFRESH SULLA PAGINA PRODUCT DETAIL
-     *  SI PERDE IL VALORE INIZIALMENTE ASSEGNATO AD AUDIENCE CHE DIVIENE undefined)
-     * && (this.HAS_INVALID_URL === false) */
-    if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined)) {
-      this.DISABLE_CONFIRM_BTN = false;
-      console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
-    } else {
-      this.DISABLE_CONFIRM_BTN = true;
-      console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
+    /** (A)
+     *  SE OPZIONE SELEZIONATA 'Messaggio + link a pagina web'
+     *  IL PULSANTE CONFERMA E' DISABILITATO SE
+     *  - IL CAMPO INPUT DEL MESSAGGIO NON HA + DI DUE DIGIT
+     *  - NON RISULTA SELEZIONATA L'AUDIENCE (ad esempio viene fatto un refresh della pagina /notification
+     *    e viene perso il valore inizialmente assegnato ad AUDIENCE che diviene undefined)
+     *  - L'URL INSERITO NON E' VALIDO */
+    if (this.notificationTypeSelected === 'Messaggio + link a pagina web') {
+      if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined) && (this.HAS_VALID_URL === true)
+      ) {
+        this.DISABLE_CONFIRM_BTN = false;
+        console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
+      } else {
+        this.DISABLE_CONFIRM_BTN = true;
+        console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
+      }
     }
+
+    /** (B)
+     *  SE OPZIONE SELEZIONATA 'Solo messaggio'
+     *  IL PULSANTE CONFERMA E' DISABILITATO SE
+     *  - IL CAMPO INPUT DEL MESSAGGIO NON HA + DI DUE DIGIT
+     *  - NON RISULTA SELEZIONATA L'AUDIENCE (ad esempio viene fatto un refresh della pagina /notification
+     *    e viene perso il valore inizialmente assegnato ad AUDIENCE che diviene undefined) */
+    if (this.notificationTypeSelected === 'Solo messaggio') {
+
+      if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined)) {
+        this.DISABLE_CONFIRM_BTN = false;
+        console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
+      } else {
+        this.DISABLE_CONFIRM_BTN = true;
+        console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
+      }
+    }
+
 
     /**
      * IL PULSANTE NEXT* 'ALTERNATIVO' (goToselectedOptionDetailProduct() CHE APRE IL DETTAGLIO PRODOTTO

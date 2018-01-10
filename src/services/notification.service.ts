@@ -19,10 +19,14 @@ export class NotificationService {
   confirmIsClicked = false;
   launchUrlIsValid: boolean;
 
+  HAS_PASTED: any;
+
   // REQUEST_COMPLETE = false;
 
   // public mySubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public REQUEST_COMPLETE: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public VALID_URL: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private http: Http,
@@ -199,9 +203,13 @@ export class NotificationService {
   }
 
   isValidUrl(isValid): void {
-
     this.launchUrlIsValid = isValid;
     console.log('HAS_INVALID_URL (notification comp) ', this.launchUrlIsValid);
+  }
+
+  hasValidUrl(VALID): void {
+    this.VALID_URL.next(VALID);
+    console.log('============= 0> VALID URL NEXT  (notification.ser) ', this.VALID_URL.value);
   }
 
 

@@ -10,7 +10,7 @@ import { AuthenticationService } from './../services/authentication.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessageAndContentComponent } from './message-and-content/message-and-content.component';
@@ -40,7 +40,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     DialogWindowComponent,

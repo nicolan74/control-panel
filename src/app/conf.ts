@@ -12,8 +12,10 @@ if (TEST_MODE) {
 export const BASE_URL = this.base_url;
 export const WS_KEY = this.ws_key;
 
-/**
+/** 
  * COSTANTI ONESIGNAL */
+/* Usato per raggiungere ONESIGNAL agli utenti tester (dashboard.component.html)*/
+export const ONESIGNAL_BASE_URL = 'https://onesignal.com/apps/';
 export const ONESIGNAL_EUROFOOD_APP_ID = 'ad8c202b-1223-494c-b7ea-3805a783cd33';
 export const ONESIGNAL_HEADER_AUTH_REST_API_KEYS = 'Basic NzY1YjlhODUtNTc0Mi00ZmE3LWJjOGUtMzUxZTdjYmFhZTgw';
 export const ONESIGNAL_POST_NOTIFICATION_BASE_URL = 'https://onesignal.com/api/v1/notifications';

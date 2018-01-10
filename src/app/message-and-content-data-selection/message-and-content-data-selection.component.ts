@@ -7,7 +7,7 @@ import { NotificationService } from '../../services/notification.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { BASE_URL, WS_KEY } from '../conf';
 
 @Component({
   selector: 'app-message-and-content-data-selection',
@@ -27,6 +27,9 @@ export class MessageAndContentDataSelectionComponent implements OnInit, DoCheck 
   // http: Http;
   results: Object;
   searchTerm$ = new Subject<string>();
+
+  PRESTASHOP_BASE_URL = BASE_URL;
+  PRESTASHOP_WS_KEY = WS_KEY;
 
   constructor(
     private searchProductService: SearchProductService,

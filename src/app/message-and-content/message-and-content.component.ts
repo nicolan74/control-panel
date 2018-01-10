@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogWindowComponent } from '../dialog-window/dialog-window.component';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
+import { BASE_URL, WS_KEY } from '../conf';
 
 @Component({
   selector: 'app-message-and-content',
@@ -31,7 +32,9 @@ export class MessageAndContentComponent implements OnInit, DoCheck {
   confirm_is_clicked = false;
   segment: string;
   message_lenght: number;
-
+  // "https://test.eurofoodservice.it/api/images/products/{{product.id}}/{{product.id_default_image}}/home_default?ws_key=DDRSMHTSBZPQME7P7WFRFNXB29FGEU6C"
+  PRESTASHOP_BASE_URL = BASE_URL;
+  PRESTASHOP_WS_KEY = WS_KEY;
   constructor(
     private route: ActivatedRoute,
     private location: Location,

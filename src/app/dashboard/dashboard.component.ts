@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, DoCheck, HostListener } from '@an
 import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { ONESIGNAL_BASE_URL, ONESIGNAL_EUROFOOD_APP_ID  } from '../conf';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,9 @@ export class DashboardComponent implements OnInit, DoCheck {
   mobWidth: any;
 
   message_lenght = 0;
-
+  // "https://onesignal.com/apps/ad8c202b-1223-494c-b7ea-3805a783cd33/players?test_users=true"
+  URL_VS_ONESIGNAL_TEST_USER = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/players?test_users=true';
+  
   notificationOptions = [
     'Messaggio + link a contenuto',
     'Solo messaggio',

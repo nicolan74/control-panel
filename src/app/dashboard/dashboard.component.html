@@ -24,9 +24,13 @@
   </div>
   <div class="colHalfTwo">
       <p>TIPO DI NOTIFICA </p>
-      <div class="selected-value"> <p style="word-wrap: break-word;">{{notificationTypeSelected}}</p>
+      <div class="selected-value"> 
+        <p style="word-wrap: break-word;">{{notificationTypeSelected}}</p>
           <span *ngIf="notificationTypeSelected == 'Messaggio + link a contenuto'">
               <p style="font-size:0.9em">Apre il dettaglio del prodotto collegato al messaggio quando l'utente clicca sulla notifica</p>
+          </span>
+          <span *ngIf="notificationTypeSelected == 'Solo messaggio'">
+              <p style="font-size:0.9em">Apre la app quando l'utente clicca sulla notifica</p>
           </span>
           <span *ngIf="notificationTypeSelected == 'Messaggio + link a pagina web'">
               <p style="font-size:0.9em">Apre il web browser all'URL collegato al messaggio quando l'utente clicca sulla notifica</p>
@@ -39,7 +43,7 @@
             <p style="font-size:0.9em">Invia la notifica a tutti gli utenti</p>
         </span>
         <span *ngIf="audienceSelected == 'Invia ad utenti test'">
-            <p style="font-size:0.9em">Invia la notifica agli utenti selezionati come tester (<a href="https://onesignal.com/apps/ad8c202b-1223-494c-b7ea-3805a783cd33/players?test_users=true" target="_blank" style="color:#929497"><strong>vedi su OneSignal</strong></a>)</p>
+            <p style="font-size:0.9em">Invia la notifica agli utenti selezionati come tester (<a href={{URL_VS_ONESIGNAL_TEST_USER}} target="_blank" style="color:#929497"><strong>vedi su OneSignal</strong></a>)</p>
         </span>
       </div>
   </div>
