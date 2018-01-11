@@ -141,7 +141,8 @@
               <button mat-raised-button color="accent" (click)="sendNotificationMessageAndUrl()" [disabled]=IS_DISABLE_SEND_MSG_BTN>INVIA MESSAGGIO</button>
             </span>
             <span *ngIf="userSelection == 'message'">
-              <button mat-raised-button color="accent" (click)="sendNotificationOnlyMessage()" [disabled]=IS_DISABLE_SEND_MSG_BTN>INVIA MESSAGGIO*</button>
+              <!-- ERA INVIA MESSAGGIO CON L'ASTERISCO -->
+              <button mat-raised-button color="accent" (click)="sendNotificationOnlyMessage()" [disabled]=IS_DISABLE_SEND_MSG_BTN>INVIA MESSAGGIO</button>
             </span>
         </span> 
         <span *ngIf="REQUEST_COMPLETE === false">

@@ -29,7 +29,9 @@ export class SearchProductService {
 
   loadOriginalProducts(): Observable<Product[]> {
     const url = `${BASE_URL}/products?output_format=JSON&display=full&filter[id]=[1,10]&filter[active]=1&ws_key=${WS_KEY}`;
+    console.log('====================================================================');
     console.log('url load original product in search-page ', url);
+    console.log('====================================================================');
     return this.http
       .get(`${url}`)
       .map(res => <Product[]>res.json().products);

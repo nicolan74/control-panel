@@ -1,6 +1,6 @@
 /**
  * SELEZIONE DELL'INSTALLAZIONE (TEST O PRODUZIONE) */
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 if (TEST_MODE) {
     this.base_url = 'https://test.eurofoodservice.it/api';
@@ -12,7 +12,7 @@ if (TEST_MODE) {
 export const BASE_URL = this.base_url;
 export const WS_KEY = this.ws_key;
 
-/** 
+/**
  * COSTANTI ONESIGNAL */
 /* Usato per raggiungere ONESIGNAL agli utenti tester (dashboard.component.html)*/
 export const ONESIGNAL_BASE_URL = 'https://onesignal.com/apps/';

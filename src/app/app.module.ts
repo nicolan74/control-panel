@@ -20,7 +20,7 @@ import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { LoginComponent } from './login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { NavigationService } from './../services/navigation.service';
-
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import { NavigationService } from './../services/navigation.service';
   entryComponents: [
     DialogWindowComponent,
   ],
-  providers: [SearchProductService, NotificationService, AuthenticationService, NavigationService],
+  providers: [SearchProductService, NotificationService, AuthenticationService, NavigationService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
