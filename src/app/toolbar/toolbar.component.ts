@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,8 +25,10 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
   IS_LOGIN_PAGE = false;
   ID: number;
 
-  PRODUCT_DETAIL_INPUT_LENGHT: any;
-  NOTIFICATION_MSG_INPUT_LENGHT: any;
+  // PRODUCT_DETAIL_INPUT_LENGHT: any;
+  // NOTIFICATION_MSG_INPUT_LENGHT: any;
+
+  MESSAGE_LENGHT: any;
 
   DISABLE_CONFIRM_BTN = true;
   DISABLE_NEXT_BTN = true;
@@ -46,7 +48,8 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private navigationService: NavigationService,
   ) { }
 
   ngOnInit() {
@@ -55,10 +58,10 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
     //   console.log('IDENTIFICATA PAGINA PRODOTTI');
     //   this.IS_PRODUCT_PAGE = true;
     // }
-    // this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
+
   }
   ngAfterViewInit() {
-    // console.log('======== SNAP SHOT PARAMS', this.route.snapshot.params['new']);
+
 
   }
 
@@ -67,8 +70,8 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
      *  I determine if the current route-request is part of a page refresh.
      *  this.router.navigated) è false se viene fatto il refresh della pagina
      *  Risolve (reindirizzando alla dashboard): se la pagina viene aggiornata this.notificationTypeSelected = undefined
-     *  questo non permette di determinare il tipo di notifica selezionata dall'utente e il 'salto' delle condizioni che 
-     *  abilitano il pulsante (vedi sotto (A) e (B))
+     *  questo non permette di determinare il tipo di notifica selezionata dall'utente e il 'salto' delle condizioni che
+     *  abilitano il pulsante CONFERMA (vedi sotto (A) e (B))
      */
     console.log('======== ====== ====== >>> ROUTER NAVIGATED', this.router.navigated);
     if (!this.router.navigated) {
@@ -88,25 +91,32 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
     );
 
 
-    this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
-    console.log('======= ===== ==> TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
-    // if (this.notificationTypeSelected === undefined) {
-    //   this.notificationTypeSelected = this.route.snapshot.params['new'];
-    //   console.log('======= ===== ==> TOOLBAR COMP -> SE UNDEFINED TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
-    // }
+    /**
+     * DALLA DASHBOARD TRAMITE NAVIGATION SERVICE
+     * ** determina il path a cui indirizza goToselectedOption() legato al NEXT
+     * ** usato anche nelle condizioni che abilitano/disabilitano il pulsante CONFERMA (vedi sotto (A) e (B))  */
+    // this.notificationTypeSelected = this.notificationService.notificationTypeSelected;
+    // console.log('======= ===== ==> TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
+    this.notificationTypeSelected = this.navigationService.NOTIFICATION_TYPE_SELECTED;
+    console.log('TOOLBAR COMP -> TIPO NOTIFICA SELEZIONATA: ', this.notificationTypeSelected);
+
+    /**
+     * DALLA DASHBOARD TRAMITE NAVIGATION SERVICE
+     * ** usato nelle condizioni che abilitano/disabilitano il pulsante CONFERMA (vedi sotto (A) e (B)) */
+    this.audienceSelected = this.notificationService.audienceSelected;
+    // this.audienceSelected = this.navigationService.AUDIENCE_SELECTED;
+    console.log('TOOLBAR COMP -> AUDIENCE SELEZIONATO: ', this.audienceSelected);
 
     this.selectedProductId = this.notificationService.selectedProductId;
     console.log('TOOLBAR COMP -> ID PRODOTTO SELEZIONATO: ', this.selectedProductId);
 
-    this.audienceSelected = this.notificationService.audienceSelected;
-    console.log('TOOLBAR COMP -> AUDIENCE SELEZIONATO: ', this.audienceSelected);
-
+ 
     /** IL VALORE E' PASSATO DA NOTIFICATION SERVICE A CUI E' PASSATO DA PRODUCT DETAIL */
-    this.PRODUCT_DETAIL_INPUT_LENGHT = this.notificationService.inputMsgLengt;
-    console.log('! ! ! -> TOOLBAR COMP -> PRODUCT_DETAIL_INPUT_MSG_LENGHT: ', this.PRODUCT_DETAIL_INPUT_LENGHT);
+    this.MESSAGE_LENGHT = this.notificationService.inputMsgLengt;
+    console.log('! ! ! -> TOOLBAR COMP -> PRODUCT_DETAIL_INPUT_MSG_LENGHT: ', this.MESSAGE_LENGHT);
 
-    this.NOTIFICATION_MSG_INPUT_LENGHT = this.notificationService.inputMsgLengt;
-    console.log('! ! ! -> TOOLBAR COMP -> NOTIFICATION_MSG_INPUT_LENGHT: ', this.NOTIFICATION_MSG_INPUT_LENGHT);
+    // this.NOTIFICATION_MSG_INPUT_LENGHT = this.notificationService.inputMsgLengt;
+    // console.log('! ! ! -> TOOLBAR COMP -> NOTIFICATION_MSG_INPUT_LENGHT: ', this.NOTIFICATION_MSG_INPUT_LENGHT);
 
     /** e' inizialmente false poi  confirmData(isClicked) - vedi sotto - gli passa true */
     this.confirmClicked = this.notificationService.confirmIsClicked;
@@ -124,7 +134,7 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
      *    e viene perso il valore inizialmente assegnato ad AUDIENCE che diviene undefined)
      *  - L'URL INSERITO NON E' VALIDO */
     if (this.notificationTypeSelected === 'Messaggio + link a pagina web') {
-      if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined) && (this.HAS_VALID_URL === true)
+      if ((this.MESSAGE_LENGHT >= 2) && (this.audienceSelected !== undefined) && (this.HAS_VALID_URL === true)
       ) {
         this.DISABLE_CONFIRM_BTN = false;
         console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
@@ -135,14 +145,14 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
     }
 
     /** (B)
-     *  SE OPZIONE SELEZIONATA 'Solo messaggio'
+     *  SE OPZIONE SELEZIONATA 'Solo messaggio' o 'Messaggio + link a contenuto'
      *  IL PULSANTE CONFERMA E' DISABILITATO SE
      *  - IL CAMPO INPUT DEL MESSAGGIO NON HA + DI DUE DIGIT
      *  - NON RISULTA SELEZIONATA L'AUDIENCE (ad esempio viene fatto un refresh della pagina /notification
      *    e viene perso il valore inizialmente assegnato ad AUDIENCE che diviene undefined) */
-    if (this.notificationTypeSelected === 'Solo messaggio') {
+    if ((this.notificationTypeSelected === 'Solo messaggio') || (this.notificationTypeSelected === 'Messaggio + link a contenuto')) {
 
-      if ((this.PRODUCT_DETAIL_INPUT_LENGHT >= 2) && (this.audienceSelected !== undefined)) {
+      if ((this.MESSAGE_LENGHT >= 2) && (this.audienceSelected !== undefined)) {
         this.DISABLE_CONFIRM_BTN = false;
         console.log(' !! TOOLBAR DISABLE_CONFIRM_BTN ', this.DISABLE_CONFIRM_BTN);
       } else {

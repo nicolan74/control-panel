@@ -49,12 +49,12 @@ export class MessageAndContentComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    console.log(' -- ---- --- -- -- ADDITIONAL-DATA-MESSAGE-COMP -- NG ON INIT ');
+    console.log('MSG-AND-CONTENT.COMP -- NG ON INIT ');
     this.getProduct();
 
     /** 'GET' L'AUDIENCE SELEZIONATA DAL NOTIFICATION SERVICE CHE A SUA VOLTA 'GET' DAL DASHBOARD COMP  */
     this.selected_audience = this.notificationService.audienceSelected;
-    console.log('-- -- -- > AUDIENCE SELECTED GET IN ADDITIONAL-DATA-MESSAGE-COMP (ngOnInit)', this.selected_audience);
+    console.log('-- -- -- > AUDIENCE SELECTED GET IN MSG-AND-CONTENT.COMP (ngOnInit)', this.selected_audience);
 
     if (this.selected_audience === undefined) {
       this.NO_SELECTED_AUDIENCE = true;

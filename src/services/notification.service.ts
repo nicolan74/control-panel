@@ -175,10 +175,10 @@ export class NotificationService {
       .map(res => <Devices[]>(res.json().players));
   }
 
-  getNotificationTypeSelected(notificatioType): void {
-    this.notificationTypeSelected = notificatioType;
-    console.log('Notification Service COMP -> TIPO NOTIFICA SELEZIONATA: ', `${notificatioType}`);
-  }
+  // getNotificationTypeSelected(notificatioType): void {
+  //   this.notificationTypeSelected = notificatioType;
+  //   console.log('Notification Service COMP -> TIPO NOTIFICA SELEZIONATA: ', `${notificatioType}`);
+  // }
 
   getAudienceSelected(audienceSelected): void {
     this.audienceSelected = audienceSelected;

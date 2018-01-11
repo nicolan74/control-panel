@@ -19,7 +19,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 import { LoginComponent } from './login/login.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-
+import { NavigationService } from './../services/navigation.service';
 
 
 @NgModule({
@@ -46,7 +46,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
   entryComponents: [
     DialogWindowComponent,
   ],
-  providers: [SearchProductService, NotificationService, AuthenticationService],
+  providers: [SearchProductService, NotificationService, AuthenticationService, NavigationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

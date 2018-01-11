@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../../services/notification.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ONESIGNAL_BASE_URL, ONESIGNAL_EUROFOOD_APP_ID  } from '../conf';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,10 +18,11 @@ export class DashboardComponent implements OnInit, DoCheck {
   mobHeight: any;
   mobWidth: any;
 
-  message_lenght = 0;
+  message_lenght = 0; // setto a zero la lunghezza del msg: se l'utente esegue un back nella dashbord resetto un eventuale valore
+
   // "https://onesignal.com/apps/ad8c202b-1223-494c-b7ea-3805a783cd33/players?test_users=true"
   URL_VS_ONESIGNAL_TEST_USER = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/players?test_users=true';
-  
+
   notificationOptions = [
     'Messaggio + link a contenuto',
     'Solo messaggio',
@@ -45,7 +47,8 @@ export class DashboardComponent implements OnInit, DoCheck {
   constructor(
     private router: Router,
     private notificationService: NotificationService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private navigationService: NavigationService
   ) {
     this.mobHeight = (window.screen.height) + 'px';
     this.mobWidth = (window.screen.width) + 'px';
@@ -56,9 +59,11 @@ export class DashboardComponent implements OnInit, DoCheck {
   ngOnInit() {
 
     /**
+     * notificationTypeSelected richiamato in ngOnInit e changeNotficationSelection
+     * da DASHBOARD -> a NAVIGATION SERVICE  -> a TOOLBAR
      * WORKFLOW: all'entrata nella dashboard e al cambio di selezione (vedi sotto changeNotficationSelection)
-     * il tipo di notifica selezionata viene passato al comp NOTIFICATION SERVICE
-     * dal notification service viene passato al comp TOOLBAR che in base alla notifica selezionata reindirizza alle pagine:
+     * il tipo di notifica selezionata viene passato al NAVIGATION SERVICE
+     * dal NAVIGATION SERVICE viene passato al comp TOOLBAR che in base alla notifica selezionata reindirizza alle pagine:
      *
      *  *** se la selezione è 'Messaggio + link a contenuto' ***
      *      path = /contentselection se la pagina in cui si trova l'utente è la DASHBOARD
@@ -73,9 +78,18 @@ export class DashboardComponent implements OnInit, DoCheck {
      *      path = /notification' (comp MessageAndUrlComponent) passando nell URL il parametro new: 'message'
      *      il componente MessageAndUrlComponent get il valore assegnato al parametro 'new' con this.route.snapshot.params['new']
      *      visualizzando nel template la sezione <span *ngIf="userSelection == 'message'">
-     */
-    this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
+     *
+     *  *** nel comp TOOLBAR viene anche usato nelle condizioni che abilitano/disabilitano il pulsante CONFERMA  */
+    // this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
+    this.navigationService.notificationTypeSelected(this.notificationTypeSelected);
+
+    /**
+     * audienceSelected richiamato in questa pagina in ngOnInit e changeAudienceSelection
+     * da DASHBOARD -> a NAVIGATION SERVICE  -> a TOOLBAR
+     *                                       -> a MESSAGE AND CONTENT COMPONENT */
     this.notificationService.getAudienceSelected(this.audienceSelected);
+    // this.navigationService.audienceSeleted(this.audienceSelected);
+
 
     this.authenticationService.checkCredentials();
 
@@ -109,13 +123,16 @@ export class DashboardComponent implements OnInit, DoCheck {
      */
     this.notificationService.setMessageLenght(this.message_lenght);
   }
+
   changeNotficationSelection(notificationTypeSelected) {
     console.log('IN DASHBOARD NOTIFICATION TYPE SELECTED ', this.notificationTypeSelected);
-    this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
+    // this.notificationService.getNotificationTypeSelected(this.notificationTypeSelected);
+    this.navigationService.notificationTypeSelected(this.notificationTypeSelected);
   }
 
   changeAudienceSelection(audienceSelected) {
     this.notificationService.getAudienceSelected(this.audienceSelected);
+    // this.navigationService.audienceSeleted(this.audienceSelected);
     console.log('-- -- > -- -- > IN DASHBOARD AUDIENCE SELECTED (changeAudienceSelection)', this.audienceSelected);
   }
 
