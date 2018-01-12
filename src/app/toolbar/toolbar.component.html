@@ -3,6 +3,22 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span *ngIf="!IS_LOGIN_PAGE">
+          <!-- padding-bottom:5px;  -->
+        <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:0px; padding-right:15px; margin-left:0px " >
+        <i class="material-icons">more_vert</i>
+          <!-- <i class="material-icons">person</i> -->
+        </button>
+        <mat-menu #menu="matMenu">
+          <!-- <p style="padding-left:16px; color:darkgrey; font-size:0.9em"> </p>
+          <button mat-menu-item (click)="logout()">Logout</button> -->
+          <p style="padding-left:16px;"><a href={{URL_VS_ONESIGNAL_SENT_MESSAGES}} target="_blank" style="color:#929497; text-decoration:none">OneSignal Messaggi inviati</a></p>
+          <p style="padding-left:16px;"><a href={{URL_VS_ONESIGNAL_ALL_USERS}} target="_blank" style="color:#929497; text-decoration:none">OneSignal Tutti gli utenti</a></p>
+          <p style="padding-left:16px;"><a href={{URL_VS_ONESIGNAL_TEST_USERS}} target="_blank" style="color:#929497; text-decoration:none">OneSignal Utenti test</a></p>
+          
+          
+          
+        </mat-menu>
+
         <a style="text-decoration: none; color:white" routerLink="/dashboard">Nuovo Messaggio</a>
       </span>
   
@@ -58,8 +74,8 @@
           </span>
 
         </div>
-
-        <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:5px; padding-right:0px; margin-left:16px " >
+        <span style="font-size:0.8em; color:white!important; font-weight:200; padding-left:20px">{{LOGGED_USER_EMAIL_TRUNCATE}}</span>
+        <button mat-button [matMenuTriggerFor]="menu" style="min-width:0px; padding-left:5px; padding-right:0px; margin-left:6px " >
           <!-- <i class="material-icons">more_vert</i> -->
           <i class="material-icons">person</i>
         </button>

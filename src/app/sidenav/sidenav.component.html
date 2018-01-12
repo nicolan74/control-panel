@@ -1,13 +1,13 @@
-<!-- <mat-sidenav-container class="example-container">
+<!-- <mat-sidenav-container fullscreen class="example-container" style="top: 74px !important;">
     
   
-        <span *ngIf="navMode == 'over'">
-            <span *ngIf="opened == false">
-    <button id="toggle_btn" type="button" mat-button (click)="sidenav.open(); onOpenClick()">
-        Open sidenav
-    </button>
-</span>
-  </span>
+    <span *ngIf="navMode == 'over'">
+        <span *ngIf="opened == false">
+            <button id="toggle_btn" type="button" mat-button (click)="sidenav.open(); onOpenClick()">
+                Open sidenav
+            </button>
+        </span>
+    </span>
 
   <span *ngIf="opened == true">
       <button id="toggle_btn" type="button" mat-button (click)="sidenav.close(); onCloseClick()">
@@ -15,7 +15,7 @@
       </button>
   </span>
 
-  <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
+  <mat-sidenav #sidenav class="example-sidenav" mode="over" opened="false">
 
       
       <mat-list>
@@ -44,3 +44,5 @@
   <!-- </div>
 
 </mat-sidenav-container> -->
+
+

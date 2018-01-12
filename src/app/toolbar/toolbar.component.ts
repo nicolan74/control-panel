@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { NavigationService } from '../../services/navigation.service';
 
+import { ONESIGNAL_BASE_URL, ONESIGNAL_EUROFOOD_APP_ID  } from '../conf';
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -40,6 +42,11 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
   // HAS_INVALID_URL = true;
   HAS_VALID_URL = false;
   LOGGED_USER_EMAIL: any;
+  LOGGED_USER_EMAIL_TRUNCATE: any;
+
+  URL_VS_ONESIGNAL_TEST_USERS = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/players?test_users=true';
+  URL_VS_ONESIGNAL_ALL_USERS = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/players';
+  URL_VS_ONESIGNAL_SENT_MESSAGES = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/notifications';
 
   @ViewChild('input_msg') input_msg;
 
@@ -82,6 +89,12 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
     // console.log('===============================================================');
     // console.log('EMAIL UTENTE LOGGATO ', this.LOGGED_USER_EMAIL);
     // console.log('===============================================================');
+    if (this.LOGGED_USER_EMAIL) {
+      this.LOGGED_USER_EMAIL_TRUNCATE = this.LOGGED_USER_EMAIL.substring(0, 8) + '...';
+      console.log('===============================================================');
+      console.log('EMAIL UTENTE LOGGATO TRONCATA', this.LOGGED_USER_EMAIL_TRUNCATE);
+      console.log('===============================================================');
+    }
 
     this.notificationService.VALID_URL.subscribe(
       value => {
@@ -110,7 +123,7 @@ export class ToolbarComponent implements OnInit, DoCheck, AfterViewInit {
     this.selectedProductId = this.notificationService.selectedProductId;
     console.log('TOOLBAR COMP -> ID PRODOTTO SELEZIONATO: ', this.selectedProductId);
 
- 
+
     /** IL VALORE E' PASSATO DA NOTIFICATION SERVICE A CUI E' PASSATO DA PRODUCT DETAIL */
     this.MESSAGE_LENGHT = this.notificationService.inputMsgLengt;
     console.log('! ! ! -> TOOLBAR COMP -> PRODUCT_DETAIL_INPUT_MSG_LENGHT: ', this.MESSAGE_LENGHT);

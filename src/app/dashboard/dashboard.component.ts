@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   message_lenght = 0; // setto a zero la lunghezza del msg: se l'utente esegue un back nella dashbord resetto un eventuale valore
 
   // "https://onesignal.com/apps/ad8c202b-1223-494c-b7ea-3805a783cd33/players?test_users=true"
-  URL_VS_ONESIGNAL_TEST_USER = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/players?test_users=true';
+  URL_VS_ONESIGNAL_TEST_USERS = ONESIGNAL_BASE_URL + ONESIGNAL_EUROFOOD_APP_ID + '/players?test_users=true';
 
   notificationOptions = [
     'Messaggio + link a contenuto',
