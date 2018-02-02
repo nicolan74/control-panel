@@ -8,7 +8,7 @@ export class User {
 }
 
 const users = [
-  new User('dario.dematteis@gmail.com', '123456'),
+  new User('eurofood', 'PuShN0t1fy2018'),
   new User('nicola.lanzilotto@frontiere21.it', '123456'),
 ];
 
